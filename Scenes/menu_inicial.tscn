@@ -46,6 +46,7 @@ max_lines_visible = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="Criar Baralho" type="Button" parent="buttons"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 37
 theme_override_styles/hover = ExtResource("1_5ceyu")

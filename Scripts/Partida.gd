@@ -67,14 +67,15 @@ func on_rodadaTerminada(resultado) -> void:
 func criarRodada() -> void:
 	#print(1)
 	$nRodadaAtual.visible = true
-	rodada = load("res://Scenes/Rodada.tscn").instantiate()
-	#print(rodada)
+	rodada = Res.rodada.instantiate()
 	add_child(rodada)
 	var ar = baralho.getMao(5)
+
 	rodada.rodadaHand = ar[0]
 	rodada.rodadaHandIds = ar[1]
 	rodada.nTentativas = nTentativas
 	rodada.rodadaTerminada.connect(on_rodadaTerminada)
+	rodada.cartaImagens = rodada.getCartaImagens(rodada.rodadaHand).duplicate(true)
 	rodada.insertHand()
 
 func _on_próxima_rodada_pressed():

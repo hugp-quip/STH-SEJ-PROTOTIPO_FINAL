@@ -1,6 +1,6 @@
 extends Control
 
-var carta : = load("res://Scenes/CardDisplay.tscn")
+#var carta : = Res.cardDiplay
 @onready var game : = $game
 @onready var mesa : = $game/Mesa
 @onready var mao : = $game/Mao
@@ -12,12 +12,23 @@ var nTentativasUsadas: int = 0
 @export var nTentativasTEXT : String = "Número de tentativas = "
 var resultados
 var comp : Array = []
+
+var cartaImagens : Dictionary
+
 func _ready():
 	call_deferred("atualizar_tentativa_counter")
+
+func getCartaImagens(_rodadaHand) -> Dictionary:
+	var ret : Dictionary = {}
+	for id in _rodadaHand:
+		ret[G.barINFO.cartas[0][id][-1]] = G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + G.barINFO.cartas[0][id][-1])
+	print(ret)
+	return ret
 
 func insertHand():
 	mao.cardsHand = rodadaHand
 	mao.inserirCartas()
+	
 
 func is_Mesa_Full() -> bool:
 	return mesa.get_cards().size() == 5
@@ -94,11 +105,6 @@ func checkComp(resultados: Dictionary, comp :Array) -> void:
 		for _carta in certos:
 			comp.append(_mesa[_carta].cardId)
 		
-
-
-		
-
-
 
 func checarCartasCompletas(r : Array) -> void: # inutilizado atualmente, em vez desse utilize checkComp 
 	# cardID das cartas que foram completas

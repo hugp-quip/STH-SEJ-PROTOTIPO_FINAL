@@ -4,6 +4,7 @@ class_name SlotContainer
 
 var slots : Array[Node]
 
+
 func _ready():
 	criarSlots()
 
@@ -11,7 +12,7 @@ func _ready():
 func criarSlots(nSlots: int = 5) -> void:
 	var slot 
 	for slt in range(nSlots):
-		slot = load("res://Scenes/CardDisplay.tscn").instantiate()
+		slot = Res.cardDiplay.instantiate()
 		add_child(slot)
 		slots.append(slot)
 		slot.makeSlot()

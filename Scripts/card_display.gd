@@ -22,9 +22,9 @@ var descDICA
 func atualizar() -> void:
 	is_slot = false
 	expand_mode = EXPAND_IGNORE_SIZE
-	texture = load("res://Assets/carta.png")
+	texture = Res.cardBackground
 	dados_carta = G.barINFO.cartas[0][cardId]
-	$imagem.texture = G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + dados_carta[-1])
+	$imagem.texture =  get_parent().get_parent().get_parent().cartaImagens[dados_carta[-1]] #G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + dados_carta[-1])
 	$Nome_da_carta.text = dados_carta[0]
 	anoShow = dados_carta[1]
 	$"Descrição_do_acontecimento".text = dados_carta[2]
@@ -42,7 +42,7 @@ func getData() -> int:
 
 func makeSlot():
 	is_slot = true
-	texture = load("res://Assets/slot.PNG")
+	texture = Res.slotBackground
 	expand_mode = EXPAND_IGNORE_SIZE
 	$imagem.visible = false
 	$Nome_da_carta.visible = false

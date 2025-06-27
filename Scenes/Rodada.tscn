@@ -1,0 +1,89 @@
+[gd_scene load_steps=5 format=3 uid="uid://c81fy1782eu4p"]
+
+[ext_resource type="Script" path="res://Scripts/rodada.gd" id="1_guopn"]
+[ext_resource type="Script" path="res://Scripts/mão.gd" id="2_caugg"]
+[ext_resource type="PackedScene" uid="uid://b8tjf6dl03tbb" path="res://Scenes/feed_back.tscn" id="2_d8u7w"]
+[ext_resource type="Script" path="res://Scripts/mesa.gd" id="2_tifm8"]
+
+[node name="Rodada" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_guopn")
+
+[node name="game" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 51.0
+offset_top = 92.0
+offset_right = 997.0
+offset_bottom = 596.0
+scale = Vector2(0.959443, 0.888639)
+localize_numeral_system = false
+mouse_filter = 2
+theme_override_constants/separation = 23
+alignment = 2
+metadata/_edit_group_ = true
+
+[node name="FeedBack" type="HBoxContainer" parent="game"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 174
+
+[node name="FeedBack" parent="game/FeedBack" instance=ExtResource("2_d8u7w")]
+layout_mode = 2
+
+[node name="FeedBack2" parent="game/FeedBack" instance=ExtResource("2_d8u7w")]
+layout_mode = 2
+
+[node name="FeedBack3" parent="game/FeedBack" instance=ExtResource("2_d8u7w")]
+layout_mode = 2
+
+[node name="FeedBack4" parent="game/FeedBack" instance=ExtResource("2_d8u7w")]
+layout_mode = 2
+
+[node name="FeedBack5" parent="game/FeedBack" instance=ExtResource("2_d8u7w")]
+layout_mode = 2
+
+[node name="Mesa" type="HBoxContainer" parent="game"]
+custom_minimum_size = Vector2(186, 204)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+script = ExtResource("2_tifm8")
+metadata/_edit_use_anchors_ = true
+
+[node name="Mao" type="HBoxContainer" parent="game"]
+custom_minimum_size = Vector2(186, 204)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
+script = ExtResource("2_caugg")
+
+[node name="Enviar Linha do Tempo" type="Button" parent="."]
+layout_mode = 0
+offset_left = 986.0
+offset_top = 277.0
+offset_right = 1149.0
+offset_bottom = 357.0
+text = "Enviar 
+Linha do tempo"
+
+[node name="debug anos" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 16.0
+offset_right = 913.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 24
+text = "Organize os eventos a seguir na linha do tempo:"
+autowrap_mode = 2
+
+[node name="Ntentativas" type="Label" parent="."]
+layout_mode = 0
+offset_left = 977.0
+offset_top = 202.0
+offset_right = 1128.0
+offset_bottom = 252.0
+autowrap_mode = 2
+
+[connection signal="pressed" from="Enviar Linha do Tempo" to="." method="_on_enviar_linha_do_tempo_pressed"]

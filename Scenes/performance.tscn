@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b4445vfk6vbsi"]
+
+[node name="performance" type="Panel"]
+custom_minimum_size = Vector2(400, 80)
+anchors_preset = -1
+anchor_right = 0.359375
+anchor_bottom = 0.135802
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.01136
+theme_override_font_sizes/font_size = 40
+text = "NO TEXT INSERTED"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+metadata/_edit_use_anchors_ = true

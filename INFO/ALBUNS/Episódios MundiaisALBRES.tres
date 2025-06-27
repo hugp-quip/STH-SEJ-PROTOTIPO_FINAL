@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AlbumRes" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Resources/AlbumRES.gd" id="1_keneh"]
+
+[resource]
+script = ExtResource("1_keneh")
+nome = "Episódios MundiaisALBRES"
+completedCartas = [19, 1, 4, 13, 21, 20, 6, 0, 8, 10, 9, 1, 8, 4, 10]
+performances = []

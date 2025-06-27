@@ -1,0 +1,194 @@
+[gd_scene load_steps=7 format=3 uid="uid://dk6o0axrll3dm"]
+
+[ext_resource type="Script" path="res://NOTUSED/deck_create.gd" id="1_pqlie"]
+[ext_resource type="StyleBox" uid="uid://bs4e4t3pcwhrl" path="res://Assets/generic_button_style.tres" id="2_17qnu"]
+[ext_resource type="Script" path="res://NOTUSED/passo_0.gd" id="2_kfytb"]
+[ext_resource type="Script" path="res://NOTUSED/passo_1.gd" id="3_wej67"]
+[ext_resource type="PackedScene" uid="uid://i5my6arf6jgs" path="res://Scenes/CardDisplay.tscn" id="4_s865g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wx2k2"]
+font_size = 25
+
+[node name="Deck_Create" type="Control"]
+layout_mode = 3
+anchor_right = 1.00087
+anchor_bottom = 0.990741
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pqlie")
+metadata/_edit_use_anchors_ = true
+
+[node name="passo0" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.00607
+anchor_bottom = 1.01713
+script = ExtResource("2_kfytb")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="passo0"]
+layout_mode = 0
+offset_left = 306.0
+offset_top = 238.0
+offset_right = 851.0
+offset_bottom = 440.0
+theme_override_constants/separation = 20
+
+[node name="selecionar" type="Button" parent="passo0/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "selecionar baralho"
+
+[node name="selecionar baralho" type="FileDialog" parent="passo0/VBoxContainer/selecionar"]
+auto_translate_mode = 1
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(608, 400)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="cadastrar" type="Button" parent="passo0/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "cadastrar baralho"
+
+[node name="cadastrar baralho" type="FileDialog" parent="passo0/VBoxContainer/cadastrar"]
+auto_translate_mode = 1
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(606, 400)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="voltar" type="Button" parent="passo0"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 23.0
+offset_right = 215.0
+offset_bottom = 114.0
+theme_override_font_sizes/font_size = 60
+text = "voltar"
+
+[node name="passo1" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0017346
+anchor_top = 0.00623053
+anchor_right = 1.00433
+anchor_bottom = 1.01713
+script = ExtResource("3_wej67")
+metadata/_edit_use_anchors_ = true
+
+[node name="Card" parent="passo1" instance=ExtResource("4_s865g")]
+layout_mode = 1
+anchor_left = 0.0689658
+anchor_top = 0.454547
+anchor_right = 0.230424
+anchor_bottom = 0.841646
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="passo1"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 135.0
+offset_right = 322.0
+offset_bottom = 201.0
+theme_override_constants/separation = 8
+
+[node name="baral_name" type="LineEdit" parent="passo1/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Insira o nome do baralho"
+
+[node name="baral_name" type="Label" parent="passo1/VBoxContainer/baral_name"]
+layout_mode = 0
+offset_left = 282.0
+offset_top = 5.0
+offset_right = 515.0
+offset_bottom = 28.0
+text = "nome selecionado= nenhum"
+
+[node name="selCsv" type="Button" parent="passo1/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/hover = ExtResource("2_17qnu")
+theme_override_styles/normal = ExtResource("2_17qnu")
+text = "Selecionar csv"
+
+[node name="csv_name" type="Label" parent="passo1/VBoxContainer/selCsv"]
+layout_mode = 0
+offset_left = 282.0
+offset_top = 2.0
+offset_right = 515.0
+offset_bottom = 25.0
+text = "csv selecionada = nenhuma"
+
+[node name="csv" type="FileDialog" parent="passo1/VBoxContainer/selCsv"]
+auto_translate_mode = 1
+title = "Open a File"
+initial_position = 1
+size = Vector2i(606, 400)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+
+[node name="imgback" type="Button" parent="passo1/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/hover = ExtResource("2_17qnu")
+theme_override_styles/normal = ExtResource("2_17qnu")
+text = "Selecionar imagem 
+de fundo 
+para as cartas"
+
+[node name="img" type="FileDialog" parent="passo1/VBoxContainer/imgback"]
+auto_translate_mode = 1
+title = "Open a File"
+initial_position = 1
+size = Vector2i(606, 400)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+
+[node name="baralho_path" type="Label" parent="passo1"]
+layout_mode = 2
+offset_left = 58.0
+offset_top = 68.0
+offset_right = 324.0
+offset_bottom = 103.0
+label_settings = SubResource("LabelSettings_wx2k2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="passo1"]
+layout_mode = 0
+offset_left = 826.0
+offset_top = 559.0
+offset_right = 1059.0
+offset_bottom = 609.0
+theme_override_constants/separation = 24
+
+[node name="enviar" type="Button" parent="passo1/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "enviar"
+
+[node name="voltar" type="Button" parent="passo1/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "cancelar"
+
+[connection signal="mudarParaPasso1" from="passo0" to="." method="_on_passo_0_mudar_para_passo_1"]
+[connection signal="pressed" from="passo0/VBoxContainer/selecionar" to="passo0" method="_on_selecionar_pressed"]
+[connection signal="dir_selected" from="passo0/VBoxContainer/selecionar/selecionar baralho" to="passo0" method="_on_selecionar_baralho_dir_selected"]
+[connection signal="pressed" from="passo0/VBoxContainer/cadastrar" to="passo0" method="_on_cadastrar_pressed"]
+[connection signal="dir_selected" from="passo0/VBoxContainer/cadastrar/cadastrar baralho" to="." method="_on_cadastrar_baralho_dir_selected"]
+[connection signal="dir_selected" from="passo0/VBoxContainer/cadastrar/cadastrar baralho" to="passo0" method="_on_cadastrar_baralho_dir_selected"]
+[connection signal="pressed" from="passo0/voltar" to="." method="_on_voltar_pressed"]
+[connection signal="allPathsFound" from="passo1" to="." method="_on_passo_1_all_paths_found"]
+[connection signal="text_submitted" from="passo1/VBoxContainer/baral_name" to="passo1" method="_on_baral_name_text_submitted"]
+[connection signal="pressed" from="passo1/VBoxContainer/selCsv" to="passo1" method="_on_sel_csv_pressed"]
+[connection signal="file_selected" from="passo1/VBoxContainer/selCsv/csv" to="passo1" method="_on_csv_file_selected"]
+[connection signal="pressed" from="passo1/VBoxContainer/imgback" to="passo1" method="_on_imgback_pressed"]
+[connection signal="file_selected" from="passo1/VBoxContainer/imgback/img" to="passo1" method="_on_img_file_selected"]
+[connection signal="pressed" from="passo1/HBoxContainer/enviar" to="passo1" method="_on_enviar_pressed"]
+[connection signal="pressed" from="passo1/HBoxContainer/voltar" to="." method="_on_voltar_pressed"]

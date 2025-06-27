@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://chxkc048nlelj"]
+
+[sub_resource type="GDScript" id="GDScript_g6wy7"]
+script/source = "extends Control
+
+#This class is meant to be called from partida, on partida end...
+signal finished()
+
+var saveT := Thread.new()
+var count : int
+
+func begin() -> void:
+	saveT.wait_to_finish()
+	saveT.start(saveGam)
+	print(k)
+	finished.emit()
+	print(k)
+
+func saveGam() -> void:
+	saveAlb()
+	savePerf()
+
+func saveAlb() -> void:
+	ResourceSaver.save(G.albumAt, G.pth + \"/\" + G.info + \"/ALBUNS/\"+ G.albumAt.nome + \".tres\")
+
+func savePerf() -> void:
+	ResourceSaver.save(G.rank, G.pth + \"/\" + G.info + \"/RANKINGS/\"+ G.rank.nome + \".tres\")
+"
+
+[node name="Save" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_g6wy7")
+
+[node name="Saving" type="Label" parent="."]
+layout_mode = 0
+offset_left = 403.0
+offset_top = 119.0
+offset_right = 730.0
+offset_bottom = 251.0
+theme_override_font_sizes/font_size = 40
+text = "Saving..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+anchor_left = 0.174479
+anchor_top = 0.425926
+anchor_right = 0.819444
+anchor_bottom = 0.555556
+offset_bottom = -3.05176e-05
+metadata/_edit_use_anchors_ = true

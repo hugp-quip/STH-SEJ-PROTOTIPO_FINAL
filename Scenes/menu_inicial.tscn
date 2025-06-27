@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://btw6veelnkhxu"]
+
+[ext_resource type="StyleBox" uid="uid://bs4e4t3pcwhrl" path="res://Assets/generic_button_style.tres" id="1_5ceyu"]
+[ext_resource type="Script" path="res://Scripts/menu_inicial.gd" id="1_ehsm6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_el575"]
+font_size = 41
+
+[sub_resource type="LabelSettings" id="LabelSettings_xfb46"]
+font_size = 99
+
+[node name="Menu_inicial" type="Control"]
+layout_mode = 3
+anchor_right = 1.0026
+anchor_bottom = 0.998476
+script = ExtResource("1_ehsm6")
+metadata/_edit_use_anchors_ = true
+
+[node name="buttons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.180953
+anchor_top = 0.429663
+anchor_right = 0.807796
+anchor_bottom = 0.833333
+theme_override_constants/separation = 18
+metadata/_edit_use_anchors_ = true
+
+[node name="Jogar" type="Button" parent="buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 37
+theme_override_styles/hover = ExtResource("1_5ceyu")
+theme_override_styles/normal = ExtResource("1_5ceyu")
+text = "Jogar
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Baralho_atual" type="Label" parent="buttons"]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+text = "{baralho atual == baralho_nome}"
+label_settings = SubResource("LabelSettings_el575")
+horizontal_alignment = 1
+autowrap_mode = 3
+max_lines_visible = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Criar Baralho" type="Button" parent="buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 37
+theme_override_styles/hover = ExtResource("1_5ceyu")
+theme_override_styles/normal = ExtResource("1_5ceyu")
+text = "Criar baralho(Em implementação)"
+metadata/_edit_use_anchors_ = true
+
+[node name="Sair_do_jogo" type="Button" parent="buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 37
+theme_override_styles/hover = ExtResource("1_5ceyu")
+theme_override_styles/normal = ExtResource("1_5ceyu")
+text = "Sair do jogo"
+metadata/_edit_use_anchors_ = true
+
+[node name="Titulo" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.101299
+anchor_top = 0.123645
+anchor_right = 0.904766
+anchor_bottom = 0.332297
+offset_bottom = -3.05176e-05
+text = "Saúde tem História"
+label_settings = SubResource("LabelSettings_xfb46")
+autowrap_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="buttons/Jogar" to="." method="_on_jogar_pressed"]
+[connection signal="pressed" from="buttons/Criar Baralho" to="." method="_on_criar_baralho_pressed"]
+[connection signal="pressed" from="buttons/Sair_do_jogo" to="." method="_on_sair_do_jogo_pressed"]

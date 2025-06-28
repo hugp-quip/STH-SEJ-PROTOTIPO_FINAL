@@ -8,6 +8,7 @@ var baralhoArr : Array # Armazena o baralho selecionado em sí
 var folder # variável que armazena o caminho do sistema operacional até o jogo.
 var tags : Array
 var ptags : Array = []# são as tags selecionadas pelo player
+
 func _ready() -> void: 
 	baralhoNome = "baralho ataual = " + baralhoPath.split("/")[1]
 	$Menu_inicial/buttons/Baralho_atual.text = baralhoNome
@@ -25,80 +26,6 @@ func _ready() -> void:
 	tags = get_tags(baralhoArr)
 	tags.append("\"\"") # as tags do baralho são atualizadas somente uma vez, aqui. Para utilizar múltiplos baralhos isso deve ser mudado.
 
-func _physics_process(_delta: float) -> void:
-	if $Selecionar_tags.visible == true:
-		if not $Selecionar_tags/VBoxContainer/LineEdit.text.is_empty():
-			checarSeTagExiste()
-		else:
-			ptags.clear()
-			ptags.append("\"\"")
-			mudarTextoDasTags(true)
-	
-func checarSeTagExiste() -> void:
-		var aux = $Selecionar_tags/VBoxContainer/LineEdit.text.to_upper()
-		ptags.clear()
-		if aux.split(", ").size() > 0:
-			ptags = aux.split(", ")
-		elif aux.length > 0:
-			ptags.append(aux)
-		
-		var valid = true
-		for tag in ptags:
-			if not(tag in tags):
-				valid = false
-
-		mudarTextoDasTags(valid)		
-
-func mudarTextoDasTags(valid):
-		if valid:
-			$Selecionar_tags/VBoxContainer/TagFindText.text = "Tags existem"
-			$Selecionar_tags/VBoxContainer/jogar.disabled = false
-		else:
-			$Selecionar_tags/VBoxContainer/TagFindText.text = "Erro! uma das tags não foi encontrada!"
-			$Selecionar_tags/VBoxContainer/jogar.disabled = true
-								
-#func _mudarBaralhoPath(new:String) -> void: # -> SelectBar
-#	get_node("buttons").get_node("Baralho_atual").text = new
-
-'''
-func _on_sair_do_jogo_pressed() -> void: 
-	get_tree().quit()
-
-func _on_jogar_pressed() -> void: # código para o botão de jogar no menu de tags 
-	$Menu_inicial.visible = false
-	$Selecionar_tags.visible = false
-	$Titulo.visible = false
-	criarPartida(baralhoArr.duplicate(true), 3, 5)
-
-func _on_JOGAR_pressed() -> void: # código para o botão de jogar no menu inicial
-	$Menu_inicial.visible = false
-	$Selecionar_tags.visible = true
-	var tag_s  = tags
-	tag_s.remove_at(0)
-	$Selecionar_tags/VBoxContainer/TagTranslate.text = "Tags disponíveis: " + str(tag_s) + "\n (Tradução: doenças, vacinas e medicamentos; Internacional, Brasil, saúde pública e mundial; aids; hanseníase;   )"'''
-
-#func on_resetPartida(): # sinal que emitido pela partida quando ela acaba ou/e deseja ser resetada
-#	criarPartida(baralhoArr.duplicate(true), 3, 5)
-
-'''func criarPartida(baralhoDict: Array, nTentativas, nRodadas) -> void:	
-	var _partida = partida.instantiate()
-	add_child(_partida)
-	#_partida.baralhoDict = baralhoDict
-	var caux = []
-	
-	for i in range(baralhoDict.size()): # -> remove os anos do plano de fundo
-		var carta = baralhoDict[i]
-		caux.append([carta[0],   carta[2],  carta[3]])
-	_partida.get_node("test").text = str(caux)
-
-	_partida.tags = ptags.duplicate()
-
-	_partida.baralho.innit(baralhoArr, _partida.tags) # -> cria um baralho interno à partida
-	_partida.nTentativas = nTentativas
-	_partida.nRodadasOG = nRodadas # nRodada original.
-	_partida.nRodadas = nRodadas # Quando uma rodada passa o número de rodadas é subtraído.
-	_partida.resetPartida.connect(on_resetPartida) # conecta o sinal emitido quando a partida acaba
-	_partida.criarRodada() # -> o criarRodada() deve ser chamado de fora da partida devido, pois o ready() dela irá ocorrer de forma inesperada.'''
 
 func importar_csv_para_dicionario() -> Array: 
 	var dirIm = DirAccess.open(baralhoPath.path_join("imagens")) # quando exportado diracess retorna apenas itens importados porém o mesmo ainda assim pode ser utilizado para acessar arquivos.

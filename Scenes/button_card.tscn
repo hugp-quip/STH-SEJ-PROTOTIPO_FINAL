@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8ykc8s8x8j15"]
+[gd_scene load_steps=6 format=3 uid="uid://b8ykc8s8x8j15"]
 
 [ext_resource type="Texture2D" uid="uid://bmw6l2k81eycp" path="res://Assets/carta.png" id="1_kuphw"]
 [ext_resource type="Script" path="res://Scripts/card_displayButton.gd" id="2_2lyl3"]
-[ext_resource type="Texture2D" uid="uid://doq8f21sb0iju" path="res://Assets/IMAGEM DE TESTES.png" id="2_r3ntx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_lutgg"]
 line_spacing = -5.0
@@ -43,7 +42,6 @@ anchor_bottom = 0.578144
 offset_top = 0.219429
 offset_right = 3.05176e-05
 offset_bottom = 0.219391
-texture = ExtResource("2_r3ntx")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 

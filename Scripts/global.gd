@@ -28,25 +28,26 @@ var toLoad : Array[String]
 var cache_ := []
 
 func _ready() -> void:
-	if OS.has_feature("editor") or OS.has_feature("debug"): # -> detecta se estamos ou não no editor, carregando assim o tipo preferível de caminho
+	if OS.has_feature("editor"): # -> detecta se estamos ou não no editor, carregando assim o tipo preferível de caminho
 		pth = "res://"
 	else:
 		pth = OS.get_executable_path().get_base_dir()
 	decks = pth.path_join(decks)
  # get_toLoad is called from the loading screen scene
 	menus = { 
-	M.INICIAL : load(pth.path_join("Scenes/menu_inicial.tscn")),
-	M.RANKING : load(pth.path_join("Scenes/ranking.tscn")),
-	M.JOGAR : load(pth.path_join("Scenes/Partida.tscn")),
-	M.SELECT : load(pth.path_join("Scenes/select_deck.tscn")),
-	M.LOADING : load(pth.path_join("Scenes/load_screen.tscn")),
-	M.ALBUM : load(pth.path_join("Scenes/album.tscn")),
+	M.INICIAL : load("res://Scenes/menu_inicial.tscn"),
+	M.RANKING : load("res://Scenes/ranking.tscn"),
+	M.JOGAR : load("res://Scenes/Partida.tscn"),
+	M.SELECT : load("res://Scenes/select_deck.tscn"),
+	M.LOADING : load("res://Scenes/load_screen.tscn"),
+	M.ALBUM : load("res://Scenes/album.tscn"),
 	M.PRIOR : prior
 }
 	
 
 func get_toLoad():
 	var fldr = DirAccess.open(G.decks)
+	print(G.decks)
 	var _decks = get_valid_decks(fldr.get_directories())
 	G.toLoad = G.toLoad + _decks
 	assert(G.toLoad.size() != 0, "ERROR NO DECKS AVAILABLE")

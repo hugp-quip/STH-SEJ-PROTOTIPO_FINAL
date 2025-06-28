@@ -93,17 +93,17 @@ func feedBack(errados, mostrarAno : bool = true):
 	for id in certos:
 		g[id].crt(anos[id])
 
-func checkComp(resultados: Dictionary, comp :Array) -> void:
-	if resultados["correto"]:
-		comp += rodadaHand
+func checkComp(_resultados: Dictionary, _comp :Array) -> void:
+	if _resultados["correto"]:
+		_comp += rodadaHand
 	else:
 		var certos = [0, 1, 2, 3, 4]
-		for _slot in resultados["errados"]:
+		for _slot in _resultados["errados"]:
 			certos.remove_at(certos.find(_slot))
 		
 		var _mesa = get_node("game").get_child(1).get_children()
 		for _carta in certos:
-			comp.append(_mesa[_carta].cardId)
+			_comp.append(_mesa[_carta].cardId)
 		
 
 func checarCartasCompletas(r : Array) -> void: # inutilizado atualmente, em vez desse utilize checkComp 

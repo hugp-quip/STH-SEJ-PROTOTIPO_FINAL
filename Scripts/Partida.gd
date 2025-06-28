@@ -15,7 +15,8 @@ signal switch(new : int)
 func _ready() -> void:
 	baralho = Baralho.new()
 	baralho.innit(G.barINFO.cartas[0])
-	nRodadas = len(G.barINFO.cartas[0])/5.
+	nRodadas = clamp(len(G.barINFO.cartas[0])/5.0, 1, 5)
+	assert( nRodadas > 0, "TRIED CREATING PARTIDA WITH TOO FEW RODADAS!!!")
 	set_deferred("nRodadasOG", nRodadas)
 	#print("kk", nRodadas)
 	call_deferred("atualizar_rodada_counter")

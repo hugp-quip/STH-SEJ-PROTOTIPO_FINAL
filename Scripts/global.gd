@@ -19,7 +19,6 @@ enum M {
 	JOGAR,
 	ALBUM,
 	PRIOR,
-	CDB,
 	EXIT}
 
 var menus : Dictionary
@@ -42,7 +41,6 @@ func _ready() -> void:
 	M.SELECT : load(pth.path_join("Scenes/select_deck.tscn")),
 	M.LOADING : load(pth.path_join("Scenes/load_screen.tscn")),
 	M.ALBUM : load(pth.path_join("Scenes/album.tscn")),
-	M.CDB : load(pth.path_join("CdB/Scenes/CDBMain.tscn")),
 	M.PRIOR : prior
 }
 	

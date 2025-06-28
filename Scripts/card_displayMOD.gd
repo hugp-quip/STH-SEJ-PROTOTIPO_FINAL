@@ -3,7 +3,7 @@ extends TextureRect
 
 
 var draggable : = true# mudar padrão dps
-var is_slot
+var is_slot: = false
 var dados_carta 
 @export var cardId : int
 var anoShow
@@ -12,7 +12,6 @@ var descDICA
 
 
 func atualizar() -> void:
-	is_slot = false
 	dados_carta = G.barINFO.cartas[0][cardId]
 	expand_mode = EXPAND_IGNORE_SIZE
 	texture = load("res://Assets/carta.png")

@@ -21,4 +21,5 @@ func _on_jogar_pressed() -> void:
 
 
 func _on_criar_baralho_pressed() -> void:
-	switch.emit(G.M.CDB)
+	#switch.emit(G.M.CDB)
+	pass

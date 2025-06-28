@@ -66,10 +66,13 @@ func _physics_process(_delta):
 				pReview.atualizar(cardId)
 				pReview.cartaNãoColocadaEmSlot.connect(on_cartaNãoColocadaEmSlot)
 				pReview.cartaColocadaEmSlot.connect(on_cartaColocadaEmSlot)
+				pReview.cartaColocadaEmCarta.connect(on_cartaColocadaEmCarta)
 				makeSlot()
 		if is_mouse and can_inspect and not(is_slot):
 			_inspect = inspect.instantiate()
-			get_node("/root").add_child(_inspect)
+			#get_node("/root").add_child(_inspect)
+			add_child(_inspect)
+			_inspect.top_level = true
 			_inspect.position = global_position + Vector2(-20, -30)
 			_inspect.atualizar(cardId)
 			can_inspect = false
@@ -80,12 +83,24 @@ func _physics_process(_delta):
 func on_cartaNãoColocadaEmSlot():
 	atualizar()
 
-func on_cartaColocadaEmSlot(node):
-	if node.is_slot == true: 
-		node.cardId = cardId 
-		node.atualizar()
-		node.is_slot = false
+func on_cartaColocadaEmSlot(slot):
+	if slot.is_slot == true: 
+		slot.cardId = cardId 
+		slot.atualizar()
+		slot.is_slot = false
 		#print(node, node.is_slot)
+
+func on_cartaColocadaEmCarta(carta):
+	var temp = carta.cardId
+	carta.cardId = cardId
+	cardId = temp
+	carta.atualizar()
+	var insp = carta.get_node("CartaInspect")
+	if insp != null:
+		insp.queue_free()
+		carta.can_inspect = true
+	atualizar()
+
 
 func _on_carta_mouse_entered() -> void:
 	#print("mou")

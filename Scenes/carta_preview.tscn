@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://i5my6arf6jgs" path="res://Scenes/CardDisplay.tscn" id="2_wgi3g"]
 [ext_resource type="Script" path="res://Scripts/card_displayMOD.gd" id="3_a1pju"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixaow"]
-size = Vector2(154, 199.074)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tmch5"]
+radius = 79.9558
+height = 206.742
 
 [node name="CartaPreview" type="Node2D"]
 position = Vector2(4, 1.99999)
@@ -27,5 +28,5 @@ z_index = 1
 position = Vector2(-3.14465, -1.12359)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(93.0002, 113.889)
-shape = SubResource("RectangleShape2D_ixaow")
+position = Vector2(92.2432, 111.236)
+shape = SubResource("CapsuleShape2D_tmch5")

@@ -72,9 +72,9 @@ func set_anosOrdem() -> void:
 	for ano in G.barINFO.cartas[0]:
 		G.anosOrdem.append(int(ano[1]))
 
-func organize(a : Array, ano : int) -> void:
-	var k = a.size()
-	while k > 0:
+func organize(a : Array, ano : int) -> void: # this function is absolutely stupid.
+	var _k = a.size()
+	while _k > 0:
 		var i = 0
 		while i < a.size():
 			var j = i + 1
@@ -85,7 +85,7 @@ func organize(a : Array, ano : int) -> void:
 					i+=1
 				j+=1
 			i = aux + 1
-		k-=1
+		_k-=1
 	a.reverse()
 
 func updateDesc(deck:Resource) -> void:

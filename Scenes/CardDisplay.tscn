@@ -18,8 +18,9 @@ font_color = Color(0, 0, 0, 1)
 font_size = 12
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vppwt"]
-size = Vector2(180, 233.333)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gk2pa"]
+radius = 82.0
+height = 232.0
 
 [node name="CardDisplay" type="TextureRect"]
 custom_minimum_size = Vector2(186, 235)
@@ -51,6 +52,7 @@ anchor_bottom = 0.578144
 offset_top = 0.219429
 offset_right = 3.05176e-05
 offset_bottom = 0.219391
+mouse_filter = 2
 texture = ExtResource("3_ydi7s")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
@@ -108,8 +110,9 @@ metadata/_edit_use_anchors_ = true
 [node name="Carta" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Carta"]
-position = Vector2(93.0001, 117.593)
-shape = SubResource("RectangleShape2D_vppwt")
+top_level = true
+position = Vector2(93, 130)
+shape = SubResource("CapsuleShape2D_gk2pa")
 
 [node name="Tags" type="Label" parent="."]
 visible = false

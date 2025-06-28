@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="AlbumRes" load_steps=2 format=3]
-
-[ext_resource type="Script" path="res://Resources/AlbumRES.gd" id="1_g33qe"]
-
-[resource]
-script = ExtResource("1_g33qe")
-nome = "DoençasALBRES"
-completedCartas = [1, 2, 0, 12]
-performances = [0]

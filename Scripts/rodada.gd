@@ -85,13 +85,15 @@ func feedBack(errados, mostrarAno : bool = true):
 	var anosErr = anos.duplicate()
 	anos.sort()
 	var g = get_node("game").get_child(0).get_children()
-
+	var cartas = get_node("game").get_node("Mesa").get_children()
 	for id in errados:	
 		g[id].err(anosErr[id], mostrarAno)
 
 		
 	for id in certos:
 		g[id].crt(anos[id])
+		cartas[id].draggable = false
+		cartas[id].is_complete = true
 
 func checkComp(_resultados: Dictionary, _comp :Array) -> void:
 	if _resultados["correto"]:

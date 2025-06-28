@@ -39,7 +39,8 @@ func silenceCartas(silenciar : bool) -> void:
 	var rodGame : Node = get_child(-1).get_child(0)
 	var arr : Array[Node] = rodGame.get_node("Mesa").get_children() + rodGame.get_node("Mao").get_children()
 	for _card in arr:
-		if not(_card.is_slot):
+		print(not(_card.is_slot) and not(_card.is_complete))
+		if not(_card.is_slot) and not(_card.is_complete):
 			_card.draggable = silenciar
 			_card.can_inspect = silenciar
 

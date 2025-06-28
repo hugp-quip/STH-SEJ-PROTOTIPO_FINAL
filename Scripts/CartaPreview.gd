@@ -20,8 +20,10 @@ func _physics_process(_delta):
 			if node is CardDisplay: 
 				if node.is_slot:
 					cartaColocadaEmSlot.emit(node)
-				else:
+				elif node.draggable:
 					cartaColocadaEmCarta.emit(node)
+				else:
+					cartaNãoColocadaEmSlot.emit()
 			else:  
 				cartaNãoColocadaEmSlot.emit()
 		else:

@@ -6,6 +6,7 @@ var is_mouse : = false
 var preview : = load("res://Scenes/carta_preview.tscn")
 var inspect : = load("res://Scenes/carta_inspect.tscn")
 @export var draggable : = true# mudar padrão dps
+@export var is_complete := false
 @export var is_slot : = true
 @export var can_inspect : = true
 var _inspect

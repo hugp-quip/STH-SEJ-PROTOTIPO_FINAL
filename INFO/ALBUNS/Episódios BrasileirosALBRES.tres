@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="AlbumRes" load_steps=2 format=3]
-
-[ext_resource type="Script" path="res://Resources/AlbumRES.gd" id="1_bqcih"]
-
-[resource]
-script = ExtResource("1_bqcih")
-nome = "Episódios BrasileirosALBRES"
-completedCartas = [9, 31, 26, 19, 27, 30, 6, 24, 34, 7, 10]
-performances = []

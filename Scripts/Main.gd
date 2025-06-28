@@ -28,9 +28,9 @@ func _on_switch(new:int) -> int:
 	menu.get_child(1).switch.connect(_on_switch)
 	return 0
 
-func criarPartida(nTentativas, nRodadas, _partida) -> void:	
+func criarPartida(nTentativas, _nRodadas, _partida) -> void:	
 	_partida.nTentativas = nTentativas
-	_partida.nRodadas = nRodadas
+	#_partida.nRodadas = nRodadas
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

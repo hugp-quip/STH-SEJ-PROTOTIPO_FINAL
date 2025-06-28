@@ -15,6 +15,7 @@ signal switch(new : int)
 func _ready() -> void:
 	baralho = Baralho.new()
 	baralho.innit(G.barINFO.cartas[0])
+	nRodadas = len(G.barINFO.cartas[0])/5.
 	set_deferred("nRodadasOG", nRodadas)
 	#print("kk", nRodadas)
 	call_deferred("atualizar_rodada_counter")

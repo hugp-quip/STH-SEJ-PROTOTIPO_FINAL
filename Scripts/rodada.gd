@@ -22,7 +22,7 @@ func getCartaImagens(_rodadaHand) -> Dictionary:
 	var ret : Dictionary = {}
 	for id in _rodadaHand:
 		ret[G.barINFO.cartas[0][id][-1]] = G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + G.barINFO.cartas[0][id][-1])
-	print(ret)
+	#print(ret)
 	return ret
 
 func insertHand():

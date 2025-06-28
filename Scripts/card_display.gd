@@ -24,7 +24,11 @@ func atualizar() -> void:
 	expand_mode = EXPAND_IGNORE_SIZE
 	texture = Res.cardBackground
 	dados_carta = G.barINFO.cartas[0][cardId]
-	$imagem.texture =  get_parent().get_parent().get_parent().cartaImagens[dados_carta[-1]] #G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + dados_carta[-1])
+	var _rodada = get_parent().get_parent().get_parent()
+	if _rodada.name == "Rodada": # e o prêmio de código mais suberbonder já feito vai para...
+		$imagem.texture =  _rodada.cartaImagens[dados_carta[-1]] 
+	else:
+		$imagem.texture = G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + dados_carta[-1])	
 	$Nome_da_carta.text = dados_carta[0]
 	anoShow = dados_carta[1]
 	$"Descrição_do_acontecimento".text = dados_carta[2]

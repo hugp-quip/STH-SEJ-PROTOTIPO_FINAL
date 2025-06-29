@@ -19,13 +19,13 @@ offset_top = 1.1236
 offset_right = 183.904
 offset_bottom = 236.124
 scale = Vector2(0.966966, 0.960796)
-mouse_filter = 0
+mouse_filter = 2
 mouse_force_pass_scroll_events = false
 script = ExtResource("3_a1pju")
 
 [node name="Area2D" type="Area2D" parent="."]
-z_index = 1
 position = Vector2(-3.14465, -1.12359)
+input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(92.2432, 111.236)

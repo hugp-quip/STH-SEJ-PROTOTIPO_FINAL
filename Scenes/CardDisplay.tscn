@@ -35,7 +35,6 @@ offset_bottom = -13.84
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 1.08)
-mouse_filter = 2
 texture = ExtResource("1_iuo3g")
 expand_mode = 1
 script = ExtResource("1_dfdbt")

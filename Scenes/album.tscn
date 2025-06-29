@@ -176,12 +176,14 @@ metadata/_edit_use_anchors_ = true
 
 [node name="cardDica" type="Label" parent="."]
 layout_mode = 0
-offset_left = 797.0
-offset_top = 436.0
-offset_right = 1112.0
-offset_bottom = 631.0
+offset_left = 805.0
+offset_top = 440.0
+offset_right = 1084.0
+offset_bottom = 565.0
 theme_override_font_sizes/font_size = 20
 text = "Descrição"
+autowrap_mode = 3
+clip_text = true
 
 [node name="resetAlb" type="Button" parent="."]
 layout_mode = 0

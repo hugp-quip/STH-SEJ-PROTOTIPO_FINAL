@@ -7,6 +7,9 @@ var curCard : int
 func _ready() -> void:
 	populateScroll()
 	updateCompletion()
+	if G.albumAt.completedCartas.size() > 0:
+		var id = get_node("ScrollContainer").get_node("GridContainer").get_child(0).cardId
+		updateDisplay(id)
 
 func updateCompletion() -> void:
 	$Complete.text = str(G.albumAt.completedCartas.size()) + "/" + str(G.barINFO.cartas[0].size())
@@ -36,14 +39,12 @@ func populateScroll() -> void:
 func _on_but_pressed(id) -> void:
 	curCard = id
 	updateDisplay(id)
-	updateDICA(id)
 
 func updateDisplay(id) -> void:
 	$CardDisplay.cardId = id
 	$CardDisplay.atualizar()
-
-func updateDICA(id) -> void:
-	$cardDica.text = G.barINFO.cartas[0][id][3]
+	$cardDica.text = G.barINFO.cartas[0][id][2]
+	
 
 
 

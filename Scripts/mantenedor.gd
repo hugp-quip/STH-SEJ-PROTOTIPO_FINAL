@@ -38,6 +38,13 @@ func get_cards_Ano() -> Array[int]: # esta função assume que a mantenedor est�
 		anos.append(int(card.get_node("Ano").text))
 	return anos
 		
+func makeNotInspect() -> void:
+	for carta in get_children() as Array[CardDisplay]:
+		carta.can_inspect = false
+
+func makeInspect() -> void:
+	for carta in get_children() as Array[CardDisplay]:
+		carta.can_inspect = true
 
 func inserirCartas() -> void:
 	pass

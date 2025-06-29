@@ -1,9 +1,9 @@
 extends Node2D
 
+class_name CartaPreview
 
 var offset  
 var over_area : = false
-var recent_area
 signal cartaNãoColocadaEmSlot
 signal cartaColocadaEmSlot(slot)
 signal cartaColocadaEmCarta(carta)
@@ -14,22 +14,34 @@ func _ready() -> void:
 func _physics_process(_delta):
 	global_position = get_global_mouse_position() - offset
 	if Input.is_action_just_released("click"):
-		recent_area = $Area2D.get_overlapping_areas()
-		if recent_area.size() > 0:
-			var node = recent_area[-1].get_parent()
-			if node is CardDisplay: 
-				if node.is_slot:
-					cartaColocadaEmSlot.emit(node)
-				elif node.draggable:
-					cartaColocadaEmCarta.emit(node)
-				else:
-					cartaNãoColocadaEmSlot.emit()
-			else:  
-				cartaNãoColocadaEmSlot.emit()
-		else:
+		var recent_area : Array[Area2D] = $Area2D.get_overlapping_areas()
+		if recent_area.size() <= 0:
 			cartaNãoColocadaEmSlot.emit()
+
+		var card_with_mouse : CardDisplay = findNodeWithMouse(recent_area)
+
+		if card_with_mouse is CardDisplay and card_with_mouse != null:
+			if card_with_mouse.is_slot:
+				
+				cartaColocadaEmSlot.emit(card_with_mouse)
+
+			elif card_with_mouse.draggable:
+
+				cartaColocadaEmCarta.emit(card_with_mouse)
+
+		else: 
+				cartaNãoColocadaEmSlot.emit()
+
 		queue_free()
 
-func atualizar(data) -> void:
+func findNodeWithMouse(recent_area : Array[Area2D]) -> CardDisplay:
+
+	for area  in recent_area:
+		var cardDiplay : CardDisplay = area.get_parent()
+		if cardDiplay != null and cardDiplay.is_mouse:
+			return cardDiplay
+	return null
+
+func atualizar(data : int) -> void:
 	$CardDisplay.cardId = data
 	$CardDisplay.atualizar()

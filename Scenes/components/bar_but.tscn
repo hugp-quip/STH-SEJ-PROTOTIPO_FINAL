@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://c11ilfxjdhohl"]
+
+[ext_resource type="Script" path="res://Scripts/components/bar_but.gd" id="1_035ux"]
+
+[node name="BarBut" type="Button"]
+custom_minimum_size = Vector2(530, 90)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -625.0
+offset_bottom = -557.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_035ux")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.741935
+anchor_top = 0.032967
+anchor_right = 0.916509
+anchor_bottom = 0.978022
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BaralhoINFO" type="Label" parent="."]
+layout_mode = 0
+anchor_left = 0.0227704
+anchor_top = 0.296703
+anchor_right = 0.519924
+anchor_bottom = 0.78022
+offset_right = -83.0
+text = "BaralhoNome completas/ nCartas"
+metadata/_edit_use_anchors_ = true

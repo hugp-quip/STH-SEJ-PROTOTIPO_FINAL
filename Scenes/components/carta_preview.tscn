@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://84o2dt3b202d"]
+
+[ext_resource type="Script" path="res://Scripts/components/CartaPreview.gd" id="1_ichv7"]
+[ext_resource type="PackedScene" uid="uid://i5my6arf6jgs" path="res://Scenes/components/CardDisplay.tscn" id="2_swlkv"]
+[ext_resource type="Script" path="res://Scripts/components/card_displayMOD.gd" id="3_aol8c"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tmch5"]
+radius = 79.9558
+height = 206.742
+
+[node name="CartaPreview" type="Node2D"]
+position = Vector2(4, 1.99999)
+scale = Vector2(0.954, 0.89)
+script = ExtResource("1_ichv7")
+
+[node name="CardDisplay" parent="." instance=ExtResource("2_swlkv")]
+offset_left = -2.09644
+offset_top = 1.1236
+offset_right = 183.904
+offset_bottom = 236.124
+scale = Vector2(0.966966, 0.960796)
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+script = ExtResource("3_aol8c")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-3.14465, -1.12359)
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(92.2432, 111.236)
+shape = SubResource("CapsuleShape2D_tmch5")

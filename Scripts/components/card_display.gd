@@ -38,7 +38,7 @@ func atualizar() -> void:
 	$Ano.visible = false
 	$Ano.text = anoShow
 	$Nome_da_carta.visible = true
-	$Descrição_do_acontecimento.visible = true
+	#$Descrição_do_acontecimento.visible = true
 
 #func switchMousePassThrough(switch: bool ):
 	

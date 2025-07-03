@@ -5,7 +5,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_lutgg"]
 line_spacing = -5.0
-font_size = 9
+font_size = 13
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_wj0ox"]
@@ -43,10 +43,10 @@ metadata/_edit_use_anchors_ = true
 [node name="imagem" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.152318
-anchor_top = 0.223359
-anchor_right = 0.84916
-anchor_bottom = 0.578144
+anchor_left = 0.0860215
+anchor_top = 0.169279
+anchor_right = 0.919355
+anchor_bottom = 0.735237
 offset_top = 0.219429
 offset_right = 3.05176e-05
 offset_bottom = 0.219391
@@ -57,21 +57,24 @@ metadata/_edit_use_anchors_ = true
 [node name="Nome_da_carta" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.172186
-anchor_top = 0.046764
-anchor_right = 0.821194
-anchor_bottom = 0.157875
+anchor_left = 0.220431
+anchor_top = 0.748621
+anchor_right = 0.784947
+anchor_bottom = 0.9316
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 90
 text = "Nome_da_carta"
 label_settings = SubResource("LabelSettings_lutgg")
 horizontal_alignment = 1
-autowrap_mode = 2
+vertical_alignment = 1
+autowrap_mode = 3
 justification_flags = 35
 max_lines_visible = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="Descrição_do_acontecimento" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0927155
@@ -105,6 +108,7 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Carta" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Carta"]
 top_level = true

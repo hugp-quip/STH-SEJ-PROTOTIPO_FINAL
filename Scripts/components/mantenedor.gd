@@ -13,6 +13,7 @@ func criarSlots(nSlots: int = 5) -> void:
 	var slot 
 	for slt in range(nSlots):
 		slot = Res.cardDiplay.instantiate()
+		#slot.get_node("Descrição_do_acontecimento").size = Vector2(0, 0)
 		add_child(slot)
 		slots.append(slot)
 		slot.makeSlot()

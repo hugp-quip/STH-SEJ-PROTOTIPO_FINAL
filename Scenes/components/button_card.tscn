@@ -17,7 +17,7 @@ font_color = Color(0, 0, 0, 1)
 font_size = 12
 font_color = Color(0, 0, 0, 1)
 
-[node name="CardDisplay" type="TextureButton"]
+[node name="CardDisplaybutton" type="TextureButton"]
 custom_minimum_size = Vector2(186, 235)
 anchors_preset = -1
 anchor_left = -0.00173611

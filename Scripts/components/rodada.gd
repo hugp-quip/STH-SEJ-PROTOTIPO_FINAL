@@ -38,6 +38,7 @@ func resetHand() -> void:
 	mesa.resetarSlots()
 
 func _on_enviar_linha_do_tempo_pressed():
+
 	if is_Mesa_Full():
 		resultados = is_correct(mesa.get_cards_Ano()) # -> vitória
 		if resultados["correto"]:
@@ -47,9 +48,18 @@ func _on_enviar_linha_do_tempo_pressed():
 			rodadaTerminada.emit("vitória")
 
 		elif not(resultados["correto"]) and nTentativasUsadas < nTentativas-1: # -> resultados["errados"] existe. -> Erro
+			print("comp antes")
+			print(comp)
 			checkComp(resultados, comp)
-			if not (comp in G.albumAt.completedCartas):
-				G.albumAt.completedCartas += comp
+			print("comp depois")
+			print(comp)
+			print("completed antes")
+			print(G.albumAt.completedCartas)
+			for carta in comp:
+				if not (carta in G.albumAt.completedCartas):
+					G.albumAt.completedCartas.append(carta)
+			print("completed depois")
+			print(G.albumAt.completedCartas)
 			nTentativasUsadas += 1
 			atualizar_tentativa_counter()
 			$"debug anos".text = "Ordem incorreta, insira novamente."
@@ -110,20 +120,20 @@ func checkComp(_resultados: Dictionary, _comp :Array) -> void:
 
 func checarCartasCompletas(r : Array) -> void: # inutilizado atualmente, em vez desse utilize checkComp 
 	# cardID das cartas que foram completas
-	var anSrt = []
-	var crdSrt = []
-	var mes = mesa.get_cards()
+	var anSrt := []
+	var crdSrt := []
+	var mes : Array[Node] = mesa.get_cards()
 	for display in mes:
 		crdSrt.append(display.cardId) #id da carta no bara
 		anSrt.append(display.anoShow) # ano da carta
-	if anSrt[0] <= anSrt[1] and crdSrt[0] not in G.albumAt.completedCartas:
+	if anSrt[0] <= anSrt[1] and not (crdSrt[0] in r):
 		r.append(crdSrt[0])
-	if anSrt[-1] >= anSrt[-2] and crdSrt[-1] not in G.albumAt.completedCartas:
+	if anSrt[-1] >= anSrt[-2] and not (crdSrt[-1] in r):
 		r.append(crdSrt[-1])
 	for i in range(1, mes.size()-1):
-		if anSrt[i-1] <= anSrt[i] and anSrt[i] <= anSrt[i+1] and crdSrt[i] not in G.albumAt.completedCartas: 
+		if anSrt[i-1] <= anSrt[i] and anSrt[i] <= anSrt[i+1] and not (crdSrt[i] in r): 
 			r.append(crdSrt[i])
-	
+
 
 	
 	

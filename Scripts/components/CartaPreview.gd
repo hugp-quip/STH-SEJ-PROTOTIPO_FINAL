@@ -10,6 +10,7 @@ signal cartaColocadaEmCarta(carta)
 
 func _ready() -> void:
 	get_node("CardDisplay").get_node("Carta").queue_free()
+	get_node("CardDisplay").get_node("Descrição_do_acontecimento").size = Vector2(0, 0)
 
 func _physics_process(_delta):
 	global_position = get_global_mouse_position() - offset

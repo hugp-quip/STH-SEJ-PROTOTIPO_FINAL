@@ -12,6 +12,7 @@ func _ready() -> void:
 		updateDisplay(id)
 
 func updateCompletion() -> void:
+	print(G.albumAt.completedCartas)
 	$Complete.text = str(G.albumAt.completedCartas.size()) + "/" + str(G.barINFO.cartas[0].size())
 
 

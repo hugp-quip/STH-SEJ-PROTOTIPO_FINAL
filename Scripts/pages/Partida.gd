@@ -26,7 +26,7 @@ func _ready() -> void:
 
 # Sinais
 func _on_resetar_partida_pressed():
-	switch.emit(G.M.SELECT) # recarrega o album e pontuação sem salvar
+	switch.emit(G.M.JOGAR) # recarrega o album e pontuação sem salvar
 
 func _on_voltar_para_o_menu_principal_pressed():
 	switch.emit(G.M.INICIAL)
@@ -39,13 +39,18 @@ func silenceCartas(silenciar : bool) -> void:
 	var rodGame : Node = get_child(-1).get_child(0)
 	var arr : Array[Node] = rodGame.get_node("Mesa").get_children() + rodGame.get_node("Mao").get_children()
 	for _card in arr:
-		print(not(_card.is_slot) and not(_card.is_complete))
+		#print(not(_card.is_slot) and not(_card.is_complete))
 		if not(_card.is_slot) and not(_card.is_complete):
 			_card.draggable = silenciar
 			_card.can_inspect = silenciar
 
 func on_rodadaTerminada(resultado) -> void:
-	rodada.get_node("Enviar Linha do Tempo").disabled = true
+	#rodada.get_node("Enviar Linha do Tempo").disabled = true
+	rodada.get_node("Enviar Linha do Tempo").text = "Próxima Rodada"
+	
+	rodada.get_node("Enviar Linha do Tempo").disconnect("pressed", rodada._on_enviar_linha_do_tempo_pressed)
+	rodada.get_node("Enviar Linha do Tempo").pressed.connect(_on_próxima_rodada_pressed)
+
 	atualizarPontuação(get_child(-1).nTentativasUsadas)
 	if resultado == "derrota": 
 		if Pontuação not in G.albumAt.performances:
@@ -56,8 +61,9 @@ func on_rodadaTerminada(resultado) -> void:
 
 	elif resultado == "vitória" and nRodadas > 1:
 		nRodadas -= 1
-		$"Próxima Rodada".disabled = false
-		G.albumAt.completedCartas += get_child(-1).comp
+		for carta in rodada.comp:
+			if not (carta in G.albumAt.completedCartas):
+				G.albumAt.completedCartas.append(carta)
 		atualizar_rodada_counter()
 
 	elif resultado == "vitória":
@@ -81,11 +87,11 @@ func criarRodada() -> void:
 	rodada.cartaImagens = rodada.getCartaImagens(rodada.rodadaHand).duplicate(true)
 	rodada.insertHand()
 
-func _on_próxima_rodada_pressed():
+func _on_próxima_rodada_pressed() -> void:
 	baralho.useCartas(rodada.rodadaHandIds)
-	get_child(-1).queue_free()
+	get_node("Rodada").queue_free()
 	criarRodada()	
-	$"Próxima Rodada".disabled = true		
+	#$"Próxima Rodada".disabled = true		
 
 
 

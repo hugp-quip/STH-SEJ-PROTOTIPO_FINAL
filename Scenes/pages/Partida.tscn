@@ -25,10 +25,10 @@ metadata/_edit_use_anchors_ = true
 [node name="Pause" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.859375
-anchor_top = 0.844136
-anchor_right = 0.970487
-anchor_bottom = 0.953704
+anchor_left = 0.834201
+anchor_top = 0.0154321
+anchor_right = 0.993056
+anchor_bottom = 0.125
 theme_override_font_sizes/font_size = 36
 text = "Pause"
 metadata/_edit_use_anchors_ = true
@@ -36,9 +36,9 @@ metadata/_edit_use_anchors_ = true
 [node name="Pontuação" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.725694
+anchor_left = 0.613715
 anchor_top = 0.0200617
-anchor_right = 0.911458
+anchor_right = 0.799479
 anchor_bottom = 0.066358
 text = "Pontuação: N/A"
 metadata/_edit_use_anchors_ = true
@@ -46,9 +46,9 @@ metadata/_edit_use_anchors_ = true
 [node name="nRodadaAtual" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.725694
+anchor_left = 0.613715
 anchor_top = 0.0601852
-anchor_right = 0.835938
+anchor_right = 0.723959
 anchor_bottom = 0.103395
 grow_vertical = 2
 text = "Rodada Atual: "
@@ -165,23 +165,14 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Voltar para o Menu Principal"
 
-[node name="Próxima Rodada" type="Button" parent="."]
-layout_mode = 0
-anchor_left = 0.871528
-anchor_top = 0.631173
-anchor_right = 0.991319
-anchor_bottom = 0.74537
-disabled = true
-text = "Proxima Rodada"
-metadata/_edit_use_anchors_ = true
-
 [node name="SeeAlb" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.909722
-anchor_top = 0.0200617
-anchor_right = 0.986983
-anchor_bottom = 0.0679012
+anchor_left = 0.830729
+anchor_top = 0.694444
+anchor_right = 0.99566
+anchor_bottom = 0.820988
+theme_override_font_sizes/font_size = 36
 text = "Ver Album"
 metadata/_edit_use_anchors_ = true
 
@@ -191,5 +182,4 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="MenuPausa/VContainer/Resume" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="MenuPausa/VContainer/Reset" to="." method="_on_resetar_partida_pressed"]
 [connection signal="pressed" from="MenuPausa/VContainer/Voltar para o Menu Principal" to="." method="_on_voltar_para_o_menu_principal_pressed"]
-[connection signal="pressed" from="Próxima Rodada" to="." method="_on_próxima_rodada_pressed"]
 [connection signal="pressed" from="SeeAlb" to="." method="_on_see_alb_pressed"]

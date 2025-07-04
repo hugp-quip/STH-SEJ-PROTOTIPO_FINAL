@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 G="*res://Scripts/globals/global.gd"
 Res="*res://Scripts/globals/res.gd"
+util="*res://util.gd"
 
 [debug]
 

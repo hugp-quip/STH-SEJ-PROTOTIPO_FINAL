@@ -8,8 +8,11 @@ var decks : String = "Decks/"
 var barINFO : Resource # -> info for currently selected decK
 var anosOrdem : Array[int]
 var albumAt: Resource # -> album do baralho atual
-var prior 
+var prior : Node
 var albBUFFER : Array = [] #Usado na hora de salvar, tem uma cópia de todos os baralhos que foram modificados durante o uso do programa.
+
+var toLoad : Array[String] 
+var cache_ := []
 
 enum M {
 	LOADING,
@@ -19,13 +22,13 @@ enum M {
 	JOGAR,
 	ALBUM,
 	PRIOR,
-	EXIT}
+	EXIT
+}
 
-var menus : Dictionary
+var menus : Dictionary 
 
 
-var toLoad : Array[String] 
-var cache_ := []
+
 
 func _ready() -> void:
 	if OS.has_feature("editor"): # -> detecta se estamos ou não no editor, carregando assim o tipo preferível de caminho
@@ -43,35 +46,37 @@ func _ready() -> void:
 	M.ALBUM : load("res://Scenes/pages/album.tscn"),
 	M.PRIOR : prior
 }
-	
 
-func get_toLoad():
-	var fldr = DirAccess.open(G.decks)
+	
+func get_toLoad() -> void:
+	var fldr := DirAccess.open(G.decks)
 	print(G.decks)
-	var _decks = get_valid_decks(fldr.get_directories())
+	var _decks := get_valid_decks(fldr.get_directories())
 	G.toLoad = G.toLoad + _decks
 	assert(G.toLoad.size() != 0, "ERROR NO DECKS AVAILABLE")
 	
-func get_valid_cards(_pth):
-	var fldr = DirAccess.open(_pth)
+func get_valid_cards(_pth: String) -> PackedStringArray:
+	var fldr := DirAccess.open(_pth)
 	return fldr.get_files()
 
-func get_valid_decks(dirs) -> Array[String]:
+func get_valid_decks(dirs : PackedStringArray) -> Array[String]:
 	var valid : Array[String] = []
 	for dir in dirs.size():
-		var fldr = DirAccess.open(G.decks.path_join(dirs[dir]))
-		var files = fldr.get_files() 
+		var fldr := DirAccess.open(G.decks.path_join(dirs[dir]))
+		var files := fldr.get_files() 
 		if files.size() == 1:
 			if files[0].get_extension() == "tres":
 				valid.append(fldr.get_current_dir().path_join(files[0]))
 	return valid
 
 func makeResourceFromImage(path:String) -> ImageTexture:
-		var i = Image.new()
+		var i := Image.new()
 		i.load(path)
-		var t = ImageTexture.new()
+		var t := ImageTexture.new()
 		t.set_image(i)
 		return t
+
+
 
 
 

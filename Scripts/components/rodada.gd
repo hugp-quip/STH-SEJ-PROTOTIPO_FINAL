@@ -1,5 +1,7 @@
 extends Control
 
+class_name Rodada
+
 #var carta : = Res.cardDiplay
 @onready var game : = $game
 @onready var mesa : = $game/Mesa
@@ -10,12 +12,12 @@ signal rodadaTerminada(resultado:int)
 var nTentativas : int
 var nTentativasUsadas: int = 0
 @export var nTentativasTEXT : String = "Número de tentativas = "
-var resultados
+var resultados : Dictionary
 var comp : Array = []
 
 var cartaImagens : Dictionary
 
-func _ready():
+func _ready() -> void:
 	call_deferred("atualizar_tentativa_counter")
 
 func getCartaImagens(_rodadaHand) -> Dictionary:
@@ -25,7 +27,7 @@ func getCartaImagens(_rodadaHand) -> Dictionary:
 	#print(ret)
 	return ret
 
-func insertHand():
+func insertHand() -> void:
 	mao.cardsHand = rodadaHand
 	mao.inserirCartas()
 	
@@ -37,7 +39,7 @@ func resetHand() -> void:
 	mao.insertCartas()
 	mesa.resetarSlots()
 
-func _on_enviar_linha_do_tempo_pressed():
+func _on_enviar_linha_do_tempo_pressed() -> void:
 
 	if is_Mesa_Full():
 		resultados = is_correct(mesa.get_cards_Ano()) # -> vitória
@@ -48,18 +50,15 @@ func _on_enviar_linha_do_tempo_pressed():
 			rodadaTerminada.emit("vitória")
 
 		elif not(resultados["correto"]) and nTentativasUsadas < nTentativas-1: # -> resultados["errados"] existe. -> Erro
-			print("comp antes")
-			print(comp)
+			
+			
 			checkComp(resultados, comp)
-			print("comp depois")
-			print(comp)
-			print("completed antes")
-			print(G.albumAt.completedCartas)
+			
+			
 			for carta in comp:
 				if not (carta in G.albumAt.completedCartas):
 					G.albumAt.completedCartas.append(carta)
-			print("completed depois")
-			print(G.albumAt.completedCartas)
+			
 			nTentativasUsadas += 1
 			atualizar_tentativa_counter()
 			$"debug anos".text = "Ordem incorreta, insira novamente."
@@ -75,12 +74,12 @@ func _on_enviar_linha_do_tempo_pressed():
 	else:
 		$"debug anos".text = "Insira todas as cartas e aperte o botão novamente"
 
-func feedBack(errados, mostrarAno : bool = true):
-	var certos = [0, 1, 2, 3, 4]
+func feedBack(errados: Array, mostrarAno : bool = true) -> void:
+	var certos := [0, 1, 2, 3, 4]
 	var anos : Array = []
 	var ncertos : Array = [] # array das nodes certas, utilizado para travar as cartas certas
 
-	for _slot in errados: # encontra o local na mesa das cartas certas
+	for _slot  in errados: # encontra o local na mesa das cartas certas
 		certos.remove_at(certos.find(_slot))
 
 	for _carta in range((errados+certos).size()): # encontra os anos de todas as cartas

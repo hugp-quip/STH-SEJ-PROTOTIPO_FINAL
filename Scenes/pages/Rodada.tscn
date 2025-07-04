@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c81fy1782eu4p"]
+[gd_scene load_steps=6 format=3 uid="uid://c81fy1782eu4p"]
 
 [ext_resource type="Script" path="res://Scripts/components/rodada.gd" id="1_716og"]
 [ext_resource type="PackedScene" uid="uid://b8tjf6dl03tbb" path="res://Scenes/components/feed_back.tscn" id="2_km8ub"]
+[ext_resource type="Script" path="res://Scenes/components/table.gd" id="2_padpw"]
 [ext_resource type="Script" path="res://Scripts/components/mesa.gd" id="3_qwoxm"]
 [ext_resource type="Script" path="res://Scripts/components/mão.gd" id="4_2vhbr"]
 
@@ -29,6 +30,7 @@ localize_numeral_system = false
 mouse_filter = 2
 theme_override_constants/separation = 23
 alignment = 2
+script = ExtResource("2_padpw")
 metadata/_edit_group_ = true
 
 [node name="FeedBack" type="HBoxContainer" parent="game"]

@@ -7,7 +7,7 @@ var Pontuação : int = 0
 var nRodadas : int
 @onready var nRodadasOG : int = nRodadas
 var rodadaAtualText : String = "Rodada Atual = " 
-var rodada : Node 
+var rodada : Rodada 
 var alb : = load("res://Scenes/pages/album.tscn")
 
 signal switch(new : int)
@@ -46,10 +46,6 @@ func silenceCartas(silenciar : bool) -> void:
 
 func on_rodadaTerminada(resultado) -> void:
 	#rodada.get_node("Enviar Linha do Tempo").disabled = true
-	rodada.get_node("Enviar Linha do Tempo").text = "Próxima Rodada"
-	
-	rodada.get_node("Enviar Linha do Tempo").disconnect("pressed", rodada._on_enviar_linha_do_tempo_pressed)
-	rodada.get_node("Enviar Linha do Tempo").pressed.connect(_on_próxima_rodada_pressed)
 
 	atualizarPontuação(get_child(-1).nTentativasUsadas)
 	if resultado == "derrota": 
@@ -60,6 +56,9 @@ func on_rodadaTerminada(resultado) -> void:
 		mostrar_MenuFimPartida("Você perdeu!!!")
 
 	elif resultado == "vitória" and nRodadas > 1:
+		rodada.get_node("Enviar Linha do Tempo").text = "Próxima Rodada"
+		rodada.get_node("Enviar Linha do Tempo").disconnect("pressed", rodada._on_enviar_linha_do_tempo_pressed)
+		rodada.get_node("Enviar Linha do Tempo").pressed.connect(_on_próxima_rodada_pressed)
 		nRodadas -= 1
 		for carta in rodada.comp:
 			if not (carta in G.albumAt.completedCartas):
@@ -78,7 +77,7 @@ func criarRodada() -> void:
 	$nRodadaAtual.visible = true
 	rodada = Res.rodada.instantiate()
 	add_child(rodada)
-	var ar = baralho.getMao(5)
+	var ar := baralho.getMao(5)
 
 	rodada.rodadaHand = ar[0]
 	rodada.rodadaHandIds = ar[1]
@@ -89,9 +88,9 @@ func criarRodada() -> void:
 
 func _on_próxima_rodada_pressed() -> void:
 	baralho.useCartas(rodada.rodadaHandIds)
-	get_node("Rodada").queue_free()
+	get_node("Rodada").queue_free() if get_node("Rodada") else print()
 	criarRodada()	
-	#$"Próxima Rodada".disabled = true		
+	
 
 
 

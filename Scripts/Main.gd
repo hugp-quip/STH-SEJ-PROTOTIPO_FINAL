@@ -1,30 +1,10 @@
 extends Node
 
 
-@onready var menu = get_node("Menu")
-@onready var atual = menu.get_child(0)
+@onready var menu := get_node("Menu")
+@onready var atual : Node = menu.get_child(0)
 
 func _ready() -> void:
-	# var crianca := BaralhoINFO.new()
-	
-	# crianca.nome = "Crianças"
-	# crianca.imagem = G.makeResourceFromImage("C:/Users/og0ta/Downloads/icone.PNG")
-	# crianca.descrição = "Baralho para as crianças."
-	# # cartas[0] -> [nome, ano, descrição, tema, nomeDaImagem.extensão]
-	# crianca.cartas = [
-	# 	[
-	# 		["Criação da vacina BCG",  "1909",  "Ano da criação da vacina BCG (contra a Tuberculose).", "i1.png"],
-	# 		["Descoberta do primeiro antibiótico",  "1928",  "A descoberta acidental da penicilina, por Alexander Fleming.", "i2.jpg"],
-	# 		["Estudos para a purificação da penicilina",  "1938",  "Um grupo de pesquisadores da Universidade de Oxford dedicou-se a purificar a penicilina", "i3.jpg"],
-	# 		["Vacina tetraviral entra no PNI",  "2013",  "Ano que a vacina contra sarampo, caxumba, rubeola e catapora entra no PNI.", "i4.jpg"], 
-	# 		["Vital produz um soro antiofídico",  "1902",  "Vital produziu o primeiro soro que dava resultado tanto em picadas de cascavel quanto em picadas de jararacas.", "i5.png"],
-	# 		["Pentavalente entra no SUS",  "2012",  "Vacina contra difteria, tétano, coqueluche, influenza tipo b e hepatite B chega ao SUS", "i6.png"]
-	# 	]
-		
-	# 	,[1,0,1]]
-	# print(crianca)
-	# print(ResourceSaver.save(crianca, "C:/Users/og0ta/OneDrive/Área de Trabalho/STH-SEJ-PROTOTIPO_FINAL/Decks/Crianças/Crianças.tres"))
-
 	menu.get_child(0).switch.connect(_on_switch)
 
 func _on_switch(new:int, data: Dictionary = {"baralhoAT": null, "albumAT": null}) -> int:
@@ -41,7 +21,8 @@ func _on_switch(new:int, data: Dictionary = {"baralhoAT": null, "albumAT": null}
 		menu.add_child(atual)
 		menu.get_child(1).switch.connect(_on_switch)
 		return 0
-
+	elif new == G.M.INICIAL:
+		create_new_baralhos()
 	atual.queue_free()
 	#print(G)
 	#print(G.menus[new])
@@ -64,3 +45,84 @@ func saveGam(alb) -> void:
 	print(alb.nome + " foi salvo")
 	if alb:
 		print(ResourceSaver.save(alb, G.pth + G.info + "ALBUNS/"+ alb.nome + ".tres"))
+
+func create_new_baralhos() -> void:
+
+	var _OLDalbuns : Array
+	for albTRES in DirAccess.open("res://INFO/ALBUNS").get_files():
+		print(albTRES)
+		if albTRES != ".gitignore":
+			_OLDalbuns.append(ResourceLoader.load("res://INFO/ALBUNS/" + albTRES))
+
+	#print(_OLDalbuns)
+	#print(_OLDbaralhos)
+
+	barTransition()
+
+
+
+func barTransition() -> void:
+	var _OLDbaralhos : Array
+	_OLDbaralhos = G.baralhoCache 
+
+	var idBaralho : = 0 
+	var idCarta := 0
+	for baralho : BaralhoINFO in _OLDbaralhos:
+		var bar : BarRES = BarRES.new()
+		var imagem : ImageTexture = baralho.imagem
+		ResourceSaver.save(imagem,  "res://Resources/Baralhos_Imagens/" + str(idBaralho) + ".tres")
+		var _REScartas : = []
+		var _cartas := []	
+		for carta : Array in baralho.cartas[0]:
+			var _carta : CartaRES = CartaRES.new() 
+			var img : ImageTexture = G.makeResourceFromImage("res://Decks/" + baralho.nome + "/imagens/" + carta[-1])
+			
+			#print("res://Decks/" + baralho.nome + "/imagens/" + carta[-1])
+
+			_carta.criar_cartaRES(
+				idCarta,
+				carta[0],
+				carta[2],
+				carta[1],
+				img
+				)
+			
+			#ResourceSaver.save(img, "res://Resources/Cartas_Imagens/" + str(_carta.id) + ".tres")
+			_REScartas.append( _carta )
+			
+			idCarta+=1
+		
+		#print(_cartas)
+		for carta in _REScartas:
+			_cartas.append("res://Resources/Cartas/" + str(carta.id) + ".tres")
+			#ResourceSaver.save(carta, "res://Resources/Cartas/" + str(carta.id) + ".tres")
+		
+		
+		bar.criar_baralhoRES(idBaralho, baralho.nome, imagem, baralho.descrição, _cartas)
+
+		ResourceSaver.save(bar, "res://Resources/Baralhos/" + str(idBaralho) + ".tres")
+		
+		idBaralho +=1
+
+		
+
+
+	# var crianca := BaralhoINFO.new()
+	
+	# crianca.nome = "Crianças"
+	# crianca.imagem = G.makeResourceFromImage("C:/Users/og0ta/Downloads/icone.PNG")
+	# crianca.descrição = "Baralho para as crianças."
+	# # cartas[0] -> [nome, ano, descrição, tema, nomeDaImagem.extensão]
+	# crianca.cartas = [
+	# 	[
+	# 		["Criação da vacina BCG",  "1909",  "Ano da criação da vacina BCG (contra a Tuberculose).", "i1.png"],
+	# 		["Descoberta do primeiro antibiótico",  "1928",  "A descoberta acidental da penicilina, por Alexander Fleming.", "i2.jpg"],
+	# 		["Estudos para a purificação da penicilina",  "1938",  "Um grupo de pesquisadores da Universidade de Oxford dedicou-se a purificar a penicilina", "i3.jpg"],
+	# 		["Vacina tetraviral entra no PNI",  "2013",  "Ano que a vacina contra sarampo, caxumba, rubeola e catapora entra no PNI.", "i4.jpg"], 
+	# 		["Vital produz um soro antiofídico",  "1902",  "Vital produziu o primeiro soro que dava resultado tanto em picadas de cascavel quanto em picadas de jararacas.", "i5.png"],
+	# 		["Pentavalente entra no SUS",  "2012",  "Vacina contra difteria, tétano, coqueluche, influenza tipo b e hepatite B chega ao SUS", "i6.png"]
+	# 	]
+		
+	# 	,[1,0,1]]
+	# print(crianca)
+	# print(ResourceSaver.save(crianca, "C:/Users/og0ta/OneDrive/Área de Trabalho/STH-SEJ-PROTOTIPO_FINAL/Decks/Crianças/Crianças.tres"))

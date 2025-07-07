@@ -1,8 +1,10 @@
 extends Control
 
-signal switch(new:int)
+signal switch(new:int, data : Dictionary)
 var barBut = load("res://Scenes/components/bar_but.tscn")
 var k : bool = true
+var baralhoAT: BaralhoINFO
+var albumAT : AlbumRes
 
 func _ready():
 	refreshDecks()
@@ -22,8 +24,8 @@ func refreshDecks() -> void:
 			bS = [deck, ab]
 			k = false
 		$ScrollContainer/GridContainer.add_child(_but)
-	if G.albumAt:
-		_barSelected(G.baralhoAT, G.albumAt)
+	if G.albumAT:
+		_barSelected(G.baralhoAT, G.albumAT)
 	elif bS:
 		_barSelected(bS[0], bS[1])
 
@@ -38,19 +40,21 @@ func makeAlbum(deck : Resource) -> Resource:
 
 
 func _barSelected(deck : Resource, alb : Resource) -> void:
-	G.albumAt = alb
-	if not(G.albumAt in G.albumBuffer):
-		G.albumBuffer.append(G.albumAt)
+	baralhoAT = deck
+	albumAT = alb
+	G.albumAT = alb
+	if not(G.albumAT in G.albumBuffer):
+		G.albumBuffer.append(G.albumAT)
 	G.baralhoAT = deck
-	G.albumAt.performances.sort()
-	G.albumAt.completedCartas = stripClones(G.albumAt.completedCartas)
+	G.albumAT.performances.sort()
+	G.albumAT.completedCartas = stripClones(G.albumAT.completedCartas)
 	organize(G.baralhoAT.cartas[0], 1)
 	#set_anosOrdem()
 	G.baralhoAtual = G.decks + G.baralhoAT.nome
 	updateDesc(deck)
 	$nomeDeck.text = G.baralhoAT.nome
-	if G.albumAt.performances:
-		$maPont.text = "Maior pontuação = " + str(G.albumAt.performances[-1])
+	if G.albumAT.performances:
+		$maPont.text = "Maior pontuação = " + str(G.albumAT.performances[-1])
 	else:
 		$maPont.text = "Não há pontuações para este baralho." 
 	$albComplete.text = "Album: " + str(alb.completedCartas.size()) + "/" + str(deck.cartas[0].size())
@@ -96,7 +100,7 @@ func _on_voltar_pressed() -> void:
 	switch.emit(G.M.INICIAL)
 
 func _on_jogar_pressed() -> void:
-	switch.emit(G.M.JOGAR)
+	switch.emit(G.M.JOGAR, {"baralhoAT": baralhoAT, "albumAT": albumAT})
 
 func _on_see_alb_pressed() -> void:
 	switch.emit(G.M.ALBUM)

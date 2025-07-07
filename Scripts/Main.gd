@@ -27,7 +27,7 @@ func _ready() -> void:
 
 	menu.get_child(0).switch.connect(_on_switch)
 
-func _on_switch(new:int) -> int:
+func _on_switch(new:int, data: Dictionary = {"baralhoAT": null, "albumAT": null}) -> int:
 	if new == G.M.EXIT:
 		savebeforequiting()
 		get_tree().quit()
@@ -35,7 +35,9 @@ func _on_switch(new:int) -> int:
 	elif new == G.M.JOGAR:
 		atual.queue_free()
 		atual = G.menus[new].instantiate()
-		criarPartida(5, 3, atual)
+
+		atual.criar_partida(5, 3, data["baralhoAT"], data["albumAT"])
+
 		menu.add_child(atual)
 		menu.get_child(1).switch.connect(_on_switch)
 		return 0
@@ -48,9 +50,7 @@ func _on_switch(new:int) -> int:
 	menu.get_child(1).switch.connect(_on_switch)
 	return 0
 
-func criarPartida(nTentativas, _nRodadas, _partida) -> void:	
-	_partida.nTentativas = nTentativas
-	#_partida.nRodadas = nRodadas
+
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

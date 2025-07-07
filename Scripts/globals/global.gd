@@ -1,13 +1,15 @@
 extends Node
 
+class_name _global
+
 var baralhoAtual : String # -> local do baralho atual já com o pth
 var pth : String 
 var info : String = "INFO/"
 var decks : String = "Decks/"
 
 # PartidaResources
-var baralhoAT : Resource # -> info for currently selected decK
-var albumAt: Resource # -> album do baralho atual
+var baralhoAT : BaralhoINFO # -> info for currently selected decK
+var albumAT: AlbumRes # -> album do baralho atual
 
 # Caches
 var baralhoToLoad : Array[String] 

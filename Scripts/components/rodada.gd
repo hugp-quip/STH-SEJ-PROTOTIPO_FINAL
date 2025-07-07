@@ -2,36 +2,46 @@ extends Control
 
 class_name Rodada
 
-#var carta : = Res.cardDiplay
+signal rodadaTerminada(resultado:int)
+
+
+var nTentativas : int
+var rodadaCartas : Array 
+
+
+
+var cartaImagens : Dictionary
 @onready var game : = $game
 @onready var mesa : = $game/Mesa
 @onready var mao : = $game/Mao
-signal rodadaTerminada(resultado:int)
-var nTentativas : int
-var nTentativasUsadas: int = 0
-@export var nTentativasTEXT : String = "Número de tentativas = "
-
-var resultados : Dictionary
-
 var comp : Array = []
-var rodadaCartas : Array 
-var cartaImagens : Dictionary
+var resultados : Dictionary
+var nTentativasUsadas: int = 0
+var nTentativasTEXT : String = "Número de tentativas = "
 
-func _ready() -> void:
+#func _ready() -> void:
+	
+
+func criar_rodada(_nTentativas : int, _rodadaCartas : Array[int]) -> void:
+	nTentativas = _nTentativas
+	rodadaCartas = _rodadaCartas
+	cartaImagens = getCartaImagens(rodadaCartas)
+	insertHand(rodadaCartas)
 	call_deferred("atualizar_tentativa_counter")
+	
+
 
 func getCartaImagens(_rodadaCartas) -> Dictionary:
 	var ret : Dictionary = {}
-	print(_rodadaCartas)
+	#print(_rodadaCartas)
 	for id in _rodadaCartas:
 		print(id)
 		ret[G.baralhoAT.cartas[0][id][-1]] = G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + G.baralhoAT.cartas[0][id][-1])
 	#print(ret)
 	return ret
 
-func insertHand() -> void:
-	mao.rodadaCartas = rodadaCartas
-	mao.inserirCartas()
+func insertHand(_rodadaCartas : Array[int]) -> void:
+	mao.inserirCartas(_rodadaCartas)
 	
 
 func is_Mesa_Full() -> bool:
@@ -58,8 +68,8 @@ func _on_enviar_linha_do_tempo_pressed() -> void:
 			
 			
 			for carta in comp:
-				if not (carta in G.albumAt.completedCartas):
-					G.albumAt.completedCartas.append(carta)
+				if not (carta in G.albumAT.completedCartas):
+					G.albumAT.completedCartas.append(carta)
 			
 			nTentativasUsadas += 1
 			atualizar_tentativa_counter()

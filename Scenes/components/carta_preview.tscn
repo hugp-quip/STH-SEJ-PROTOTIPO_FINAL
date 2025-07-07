@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://84o2dt3b202d"]
+[gd_scene load_steps=4 format=3 uid="uid://84o2dt3b202d"]
 
 [ext_resource type="Script" path="res://Scripts/components/CartaPreview.gd" id="1_ichv7"]
 [ext_resource type="PackedScene" uid="uid://i5my6arf6jgs" path="res://Scenes/components/CardDisplay.tscn" id="2_swlkv"]
-[ext_resource type="Script" path="res://Scripts/components/card_displayMOD.gd" id="3_aol8c"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tmch5"]
 radius = 79.9558
@@ -21,7 +20,6 @@ offset_bottom = 236.124
 scale = Vector2(0.966966, 0.960796)
 mouse_filter = 2
 mouse_force_pass_scroll_events = false
-script = ExtResource("3_aol8c")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(-3.14465, -1.12359)

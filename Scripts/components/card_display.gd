@@ -20,16 +20,25 @@ var descDICA
 # E O DE INSPECT É MOUSE PASS.(isso garante com que você não inspecione quando movendo carta e consiga inspecionar)
 #
 
+func criar_carta(id) -> void:
+	cardId = id
+	atualizar()
+
 func atualizar() -> void:
 	is_slot = false
 	expand_mode = EXPAND_IGNORE_SIZE
 	texture = Res.cardBackground
+
 	dados_carta = G.baralhoAT.cartas[0][cardId]
-	var _rodada = get_parent().get_parent().get_parent()
-	if _rodada.name == "Rodada": # e o prêmio de código mais suberbonder já feito vai para...
-		$imagem.texture =  _rodada.cartaImagens[dados_carta[-1]] 
+	
+	var maybeRodada = get_parent().get_parent().get_parent() if get_parent().get_parent().get_parent() else get_parent()
+	var is_from_rodada := true if maybeRodada.name == "Rodada" else false
+	
+	if is_from_rodada: # e o prêmio de código mais superbonder já feito vai para...
+		$imagem.texture =  maybeRodada.cartaImagens[dados_carta[-1]] 
 	else:
 		$imagem.texture = G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + dados_carta[-1])	
+	
 	$Nome_da_carta.text = dados_carta[0]
 	anoShow = dados_carta[1]
 	$"Descrição_do_acontecimento".text = dados_carta[2]

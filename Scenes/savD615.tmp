@@ -20,7 +20,7 @@ func saveGam() -> void:
 	savePerf()
 
 func saveAlb() -> void:
-	ResourceSaver.save(G.albumAt, G.pth + \"/\" + G.info + \"/ALBUNS/\"+ G.albumAt.nome + \".tres\")
+	ResourceSaver.save(G.albumAT, G.pth + \"/\" + G.info + \"/ALBUNS/\"+ G.albumAT.nome + \".tres\")
 
 func savePerf() -> void:
 	ResourceSaver.save(G.rank, G.pth + \"/\" + G.info + \"/RANKINGS/\"+ G.rank.nome + \".tres\")

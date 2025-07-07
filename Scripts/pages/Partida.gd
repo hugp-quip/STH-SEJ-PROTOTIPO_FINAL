@@ -1,57 +1,76 @@
 extends Control
 
-var baralho: Baralho 
+class_name Partida
+
 var nTentativas : int
-var Pontuação : int = 0
-#var tags : Array
 var nRodadas : int
-@onready var nRodadasOG : int = nRodadas
 var rodadaAtualText : String = "Rodada Atual = " 
+var baralho: Baralho 
+var baralhoAT: BaralhoINFO
+var albumAT: AlbumRes
+
+
+var Pontuação : int = 0
 var rodada : Rodada 
-var alb : = load("res://Scenes/pages/album.tscn")
+
+@onready var nRodadasOG : int = nRodadas
+var alb : PackedScene = load("res://Scenes/pages/album.tscn")
+var albInstance : Node
 
 signal switch(new : int)
 
-func _ready() -> void:
+#func _ready() -> void:
+
+
+func criar_partida(_nTentativas: int, _nRodadas: int, _baralhoAT: BaralhoINFO, _albumAT: AlbumRes ) -> void:
+	nRodadas = _nRodadas
+	nTentativas = _nTentativas
+	baralhoAT = _baralhoAT
+	albumAT = _albumAT
+
 	baralho = Baralho.new()
-	baralho.innit(G.baralhoAT.cartas[0])
+	baralho.criar_baralho(_baralhoAT.cartas[0])
 	nRodadas = clamp(len(G.baralhoAT.cartas[0])/5.0, 1, 5)
 	assert( nRodadas > 0, "TRIED CREATING PARTIDA WITH TOO FEW RODADAS!!!")
 	set_deferred("nRodadasOG", nRodadas)
-	#print("kk", nRodadas)
 	call_deferred("atualizar_rodada_counter")
 	call_deferred("atualizarPontuação")
-	call_deferred("criarRodada")
+	call_deferred("partida_criar_rodada")
+
 
 # Sinais
-func _on_resetar_partida_pressed():
-	switch.emit(G.M.JOGAR) # recarrega o album e pontuação sem salvar
+func _on_resetar_partida_pressed() -> void:
+	switch.emit(G.M.JOGAR,  {"baralhoAT": baralhoAT, "albumAT": albumAT}) # recarrega o album e pontuação sem salvar
 
-func _on_voltar_para_o_menu_principal_pressed():
+func _on_voltar_para_o_menu_principal_pressed() -> void:
 	switch.emit(G.M.INICIAL)
 
-func _on_pause_pressed():
-	get_node("MenuPausa").visible = not(get_node("MenuPausa").visible)
-	silenceCartas(not(get_node("MenuPausa").visible))
+func _on_pause_pressed() -> void:
+	var menu_pausa : Control = get_node("MenuPausa")
+	menu_pausa.visible = not(menu_pausa.visible)
+	silenceCartas(not(menu_pausa.visible))
 
 # @param {"true"| "bata" | "adgfs"} silenciar
 func silenceCartas(silenciar : bool) -> void:
 	var rodGame : Node = get_child(-1).get_child(0)
-	var arr : Array[Node] = rodGame.get_node("Mesa").get_children() + rodGame.get_node("Mao").get_children()
+	# não tente mudar para Array[CardDisplay]
+	var arr : Array[CardDisplay] 
+	for cardDisplay in (rodGame.get_node("Mesa").get_children() + rodGame.get_node("Mao").get_children()):
+		arr.append(cardDisplay as CardDisplay)
+
 	for _card in arr:
 		#print(not(_card.is_slot) and not(_card.is_complete))
 		if not(_card.is_slot) and not(_card.is_complete):
 			_card.draggable = silenciar
 			_card.can_inspect = silenciar
 
-func on_rodadaTerminada(resultado) -> void:
-	#rodada.get_node("Enviar Linha do Tempo").disabled = true
+func on_rodadaTerminada(resultado : String) -> void:
 
-	atualizarPontuação(get_child(-1).nTentativasUsadas)
+	atualizarPontuação(rodada.nTentativasUsadas)
 	if resultado == "derrota": 
-		if Pontuação not in G.albumAt.performances:
-			G.albumAt.performances.append(Pontuação)	
-		G.albumAt.completedCartas += get_child(-1).comp
+		if Pontuação not in G.albumAT.performances:
+			G.albumAT.performances.append(Pontuação)	
+		G.albumAT.completedCartas += rodada.comp
 		#saveGam()
 		mostrar_MenuFimPartida("Você perdeu!!!")
 
@@ -60,33 +79,31 @@ func on_rodadaTerminada(resultado) -> void:
 		rodada.get_node("Enviar Linha do Tempo").disconnect("pressed", rodada._on_enviar_linha_do_tempo_pressed)
 		rodada.get_node("Enviar Linha do Tempo").pressed.connect(_on_próxima_rodada_pressed)
 		nRodadas -= 1
-		for carta in rodada.comp:
-			if not (carta in G.albumAt.completedCartas):
-				G.albumAt.completedCartas.append(carta)
+		for carta : int in rodada.comp:
+			if not (carta in G.albumAT.completedCartas):
+				G.albumAT.completedCartas.append(carta)
 		atualizar_rodada_counter()
 
 	elif resultado == "vitória":
-		if Pontuação not in G.albumAt.performances:
-			G.albumAt.performances.append(Pontuação)
-		G.albumAt.completedCartas += get_child(-1).comp
+		if Pontuação not in G.albumAT.performances:
+			G.albumAT.performances.append(Pontuação)
+		G.albumAT.completedCartas += get_child(-1).comp
 		#saveGam()
 		mostrar_MenuFimPartida("Você ganhou!!!")
 
-func criarRodada() -> void:
-	#print(1)
+func partida_criar_rodada() -> void:
 	$nRodadaAtual.visible = true
 	rodada = Res.rodada.instantiate()
 	add_child(rodada)
-	rodada.rodadaCartas = baralho.getMao(5)
-	rodada.nTentativas = nTentativas
-	rodada.rodadaTerminada.connect(on_rodadaTerminada)
-	rodada.cartaImagens = rodada.getCartaImagens(rodada.rodadaCartas)#.duplicate(true)
-	rodada.insertHand()
 
+	rodada.criar_rodada(nTentativas, baralho.getMao(5))
+	
+	rodada.rodadaTerminada.connect(on_rodadaTerminada)
+	
 func _on_próxima_rodada_pressed() -> void:
 	baralho.useCartas(rodada.rodadaCartas)
-	get_node("Rodada").queue_free() if get_node("Rodada") else print()
-	criarRodada()	
+	rodada.queue_free() if rodada else func() : print("irmão n tem rodada sla qq aconteceu")
+	partida_criar_rodada()	
 	
 
 
@@ -109,37 +126,38 @@ func mostrar_MenuFimPartida(resultado: String) -> void:
 
 
 func get_maiorPontuação() -> int:
-	return G.albumAt.performances[-1]
+	return G.albumAT.performances[-1]
 	
 func atualizarPontuação(tentat:int = 5) -> void:
 	Pontuação = get_node("Pontuação").text.to_int() + (5 - tentat)*200
-	var p = get_node("Pontuação")
+	var p := get_node("Pontuação")
 	p.text = "Pontuação = " + str(Pontuação)
 	
-func atualizar_rodada_counter():
+func atualizar_rodada_counter() -> void:
 	$nRodadaAtual.text = rodadaAtualText + str(nRodadasOG - nRodadas + 1) + "/" + str(nRodadasOG)
 
 func _on_see_alb_pressed() -> void:
-	var _alb = alb.instantiate()
-	var b = _alb.get_node("Voltar") 
-	_alb.get_node("resetAlb").queue_free()
-	b.pressed.disconnect(_alb._on_voltar_pressed)
+	albInstance = alb.instantiate()
+	var b := albInstance.get_node("Voltar") 
+	
+	albInstance.get_node("resetAlb").queue_free()
+	b.pressed.disconnect(albInstance._on_voltar_pressed)
 	b.pressed.connect(leave_alb)
-	get_parent().add_child(_alb)
+	get_parent().add_child(albInstance)
 	visible = false
 	
 func leave_alb() -> void:
-	get_parent().get_child(-1).queue_free()# remove_child(alb)
+	albInstance.queue_free()# remove_child(alb)
 	visible = true
 
 
 
 class Baralho:
 	var cartas : Array
-	var cartasUsadas : Array
+	var cartasUsadas : Array[int]
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new() 
 
-	func innit(_cartas: Array) -> void:
+	func criar_baralho(_cartas: Array) -> void:
 		cartas = _cartas.duplicate(true)
 
 	func getCarta(id: int) -> int:
@@ -149,15 +167,15 @@ class Baralho:
 		cartasUsadas.append(id)
 
 	func useCartas(ids: Array) -> void:
-		for id in ids:
+		for id : int in ids:
 			useCarta(id)
 			
-	func getMao(nCartas : int) -> Array:
+	func getMao(nCartas : int) -> Array[int]:
 		var i := 0
 		#print(nCartas)
 		assert(not(nCartas > cartas.size()), " ERROR, TOO MANY CARDS")
-		var ret := []
-		var sb := cartasUsadas.duplicate()
+		var ret : Array[int]= []
+		var sb : Array[int] = cartasUsadas.duplicate()
 		var i2 := 0
 		var n: int 
 		while i < nCartas:

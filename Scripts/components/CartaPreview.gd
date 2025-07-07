@@ -12,6 +12,7 @@ func _ready() -> void:
 	get_node("CardDisplay").get_node("Carta").queue_free()
 	get_node("CardDisplay").get_node("Descrição_do_acontecimento").size = Vector2(0, 0)
 
+
 func _physics_process(_delta):
 	global_position = get_global_mouse_position() - offset
 	if Input.is_action_just_released("click"):
@@ -50,3 +51,5 @@ func findNodeWithMouse(recent_area : Array[Area2D]) -> CardDisplay:
 func atualizar(data : int) -> void:
 	$CardDisplay.cardId = data
 	$CardDisplay.atualizar()
+	$CardDisplay.is_slot = true
+	$CardDisplay.is_mouse = true

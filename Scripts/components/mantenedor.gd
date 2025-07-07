@@ -47,7 +47,7 @@ func makeInspect() -> void:
 	for carta in get_children() as Array[CardDisplay]:
 		carta.can_inspect = true
 
-func inserirCartas() -> void:
+func inserirCartas(cartas : Array[int]) -> void:
 	pass
 
 func resetarSlots() -> void:

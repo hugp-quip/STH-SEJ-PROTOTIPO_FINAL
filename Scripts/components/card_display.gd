@@ -31,8 +31,8 @@ func atualizar() -> void:
 
 	dados_carta = G.baralhoAT.cartas[0][cardId]
 	
-	var maybeRodada = get_parent().get_parent().get_parent() if get_parent().get_parent().get_parent() else get_parent()
-	var is_from_rodada := true if maybeRodada.name == "Rodada" else false
+	var maybeRodada := get_parent().get_parent().get_parent() if get_parent().get_parent().get_parent() else get_parent()
+	var is_from_rodada := maybeRodada.name == "Rodada"
 	
 	if is_from_rodada: # e o prêmio de código mais superbonder já feito vai para...
 		$imagem.texture =  maybeRodada.cartaImagens[dados_carta[-1]] 

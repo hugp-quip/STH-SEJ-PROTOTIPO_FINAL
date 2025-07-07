@@ -6,29 +6,31 @@ class_name Rodada
 @onready var game : = $game
 @onready var mesa : = $game/Mesa
 @onready var mao : = $game/Mao
-var rodadaHand : Array 
-@export var rodadaHandIds : Array
 signal rodadaTerminada(resultado:int)
 var nTentativas : int
 var nTentativasUsadas: int = 0
 @export var nTentativasTEXT : String = "Número de tentativas = "
-var resultados : Dictionary
-var comp : Array = []
 
+var resultados : Dictionary
+
+var comp : Array = []
+var rodadaCartas : Array 
 var cartaImagens : Dictionary
 
 func _ready() -> void:
 	call_deferred("atualizar_tentativa_counter")
 
-func getCartaImagens(_rodadaHand) -> Dictionary:
+func getCartaImagens(_rodadaCartas) -> Dictionary:
 	var ret : Dictionary = {}
-	for id in _rodadaHand:
-		ret[G.barINFO.cartas[0][id][-1]] = G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + G.barINFO.cartas[0][id][-1])
+	print(_rodadaCartas)
+	for id in _rodadaCartas:
+		print(id)
+		ret[G.baralhoAT.cartas[0][id][-1]] = G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + G.baralhoAT.cartas[0][id][-1])
 	#print(ret)
 	return ret
 
 func insertHand() -> void:
-	mao.cardsHand = rodadaHand
+	mao.rodadaCartas = rodadaCartas
 	mao.inserirCartas()
 	
 
@@ -45,7 +47,7 @@ func _on_enviar_linha_do_tempo_pressed() -> void:
 		resultados = is_correct(mesa.get_cards_Ano()) # -> vitória
 		if resultados["correto"]:
 			checkComp(resultados, comp)	
-			comp = rodadaHand
+			comp = rodadaCartas
 			feedBack(resultados["errados"])
 			rodadaTerminada.emit("vitória")
 
@@ -106,7 +108,7 @@ func feedBack(errados: Array, mostrarAno : bool = true) -> void:
 
 func checkComp(_resultados: Dictionary, _comp :Array) -> void:
 	if _resultados["correto"]:
-		_comp += rodadaHand
+		_comp += rodadaCartas
 	else:
 		var certos = [0, 1, 2, 3, 4]
 		for _slot in _resultados["errados"]:

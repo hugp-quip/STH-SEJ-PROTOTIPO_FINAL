@@ -23,7 +23,7 @@ func _ready() -> void:
 
 func atualizar() -> void:
 	is_slot = false
-	dados_carta = G.barINFO.cartas[0][cardId]
+	dados_carta = G.baralhoAT.cartas[0][cardId]
 	texture_normal = load("res://Assets/carta.png")
 	$imagem.texture = G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + dados_carta[-1])
 	$Nome_da_carta.text = dados_carta[0]

@@ -14,15 +14,14 @@ signal switch(new : int)
 
 func _ready() -> void:
 	baralho = Baralho.new()
-	baralho.innit(G.barINFO.cartas[0])
-	nRodadas = clamp(len(G.barINFO.cartas[0])/5.0, 1, 5)
+	baralho.innit(G.baralhoAT.cartas[0])
+	nRodadas = clamp(len(G.baralhoAT.cartas[0])/5.0, 1, 5)
 	assert( nRodadas > 0, "TRIED CREATING PARTIDA WITH TOO FEW RODADAS!!!")
 	set_deferred("nRodadasOG", nRodadas)
 	#print("kk", nRodadas)
 	call_deferred("atualizar_rodada_counter")
 	call_deferred("atualizarPontuação")
 	call_deferred("criarRodada")
-	
 
 # Sinais
 func _on_resetar_partida_pressed():
@@ -35,6 +34,7 @@ func _on_pause_pressed():
 	get_node("MenuPausa").visible = not(get_node("MenuPausa").visible)
 	silenceCartas(not(get_node("MenuPausa").visible))
 
+# @param {"true"| "bata" | "adgfs"} silenciar
 func silenceCartas(silenciar : bool) -> void:
 	var rodGame : Node = get_child(-1).get_child(0)
 	var arr : Array[Node] = rodGame.get_node("Mesa").get_children() + rodGame.get_node("Mao").get_children()
@@ -77,17 +77,14 @@ func criarRodada() -> void:
 	$nRodadaAtual.visible = true
 	rodada = Res.rodada.instantiate()
 	add_child(rodada)
-	var ar := baralho.getMao(5)
-
-	rodada.rodadaHand = ar[0]
-	rodada.rodadaHandIds = ar[1]
+	rodada.rodadaCartas = baralho.getMao(5)
 	rodada.nTentativas = nTentativas
 	rodada.rodadaTerminada.connect(on_rodadaTerminada)
-	rodada.cartaImagens = rodada.getCartaImagens(rodada.rodadaHand).duplicate(true)
+	rodada.cartaImagens = rodada.getCartaImagens(rodada.rodadaCartas)#.duplicate(true)
 	rodada.insertHand()
 
 func _on_próxima_rodada_pressed() -> void:
-	baralho.useCartas(rodada.rodadaHandIds)
+	baralho.useCartas(rodada.rodadaCartas)
 	get_node("Rodada").queue_free() if get_node("Rodada") else print()
 	criarRodada()	
 	
@@ -138,15 +135,15 @@ func leave_alb() -> void:
 
 
 class Baralho:
-	var dicCartas : Array
+	var cartas : Array
 	var cartasUsadas : Array
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new() 
 
-	func innit(cartas: Array):
-		dicCartas = cartas.duplicate(true)
+	func innit(_cartas: Array) -> void:
+		cartas = _cartas.duplicate(true)
 
-	func getCarta(id: int) -> Array:
-		return dicCartas[id] 
+	func getCarta(id: int) -> int:
+		return cartas[id] 
 
 	func useCarta(id: int) -> void:
 		cartasUsadas.append(id)
@@ -156,20 +153,20 @@ class Baralho:
 			useCarta(id)
 			
 	func getMao(nCartas : int) -> Array:
-		var i = 0
+		var i := 0
 		#print(nCartas)
-		assert(not(nCartas > dicCartas.size()), " ERROR, TOO MANY CARDS")
-		var ret = []
-		var sb = cartasUsadas.duplicate()
-		var i2 = 0
+		assert(not(nCartas > cartas.size()), " ERROR, TOO MANY CARDS")
+		var ret := []
+		var sb := cartasUsadas.duplicate()
+		var i2 := 0
 		var n: int 
 		while i < nCartas:
-			assert(not(i2 > dicCartas.size()+10 ), " ERROR, INFINITE LOOP ON Partida.baralho.getMao()")
-			n = rng.randi_range(0, dicCartas.size()-1)
+			assert(not(i2 > cartas.size()+10 ), " ERROR, INFINITE LOOP ON Partida.baralho.getMao()")
+			n = rng.randi_range(0, cartas.size()-1)
 			if not(n in sb):
 				ret.append(n)
 				sb.append(n)
 				i+=1
 			i2+=1
-		return [ret, sb]
+		return ret
 		

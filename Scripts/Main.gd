@@ -57,7 +57,7 @@ func _notification(what: int) -> void:
 		savebeforequiting()
 
 func savebeforequiting() -> void:
-	for alb in G.albBUFFER:
+	for alb in G.albumBuffer:
 		saveGam(alb)
 
 func saveGam(alb) -> void:

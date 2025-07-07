@@ -24,7 +24,7 @@ func atualizar() -> void:
 	is_slot = false
 	expand_mode = EXPAND_IGNORE_SIZE
 	texture = Res.cardBackground
-	dados_carta = G.barINFO.cartas[0][cardId]
+	dados_carta = G.baralhoAT.cartas[0][cardId]
 	var _rodada = get_parent().get_parent().get_parent()
 	if _rodada.name == "Rodada": # e o prêmio de código mais suberbonder já feito vai para...
 		$imagem.texture =  _rodada.cartaImagens[dados_carta[-1]] 
@@ -71,7 +71,12 @@ func _physics_process(_delta : float) -> void:
 				pReview.cartaColocadaEmSlot.connect(on_cartaColocadaEmSlot)
 				pReview.cartaColocadaEmCarta.connect(on_cartaColocadaEmCarta)
 				makeSlot()
-		if  is_mouse and not(is_slot) and can_inspect and !get_tree().get_root().get_node("CartaPreview"):
+		
+		var is_moving_card : bool = get_tree().get_root().get_children().filter( 
+			func(child : Node) -> bool:  if child.name == "CartaPreview": return true else: return false 
+			).is_empty()
+
+		if  is_mouse and not(is_slot) and can_inspect and is_moving_card:# and !:
 			_inspect = inspect.instantiate()
 			#get_node("/root").add_child(_inspect)
 			add_child(_inspect)

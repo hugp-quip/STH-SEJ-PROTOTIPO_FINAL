@@ -1,19 +1,21 @@
 extends Node
 
 var baralhoAtual : String # -> local do baralho atual já com o pth
-var baralhoNome : String 
 var pth : String 
 var info : String = "INFO/"
 var decks : String = "Decks/"
-var barINFO : Resource # -> info for currently selected decK
-var anosOrdem : Array[int]
+
+# PartidaResources
+var baralhoAT : Resource # -> info for currently selected decK
 var albumAt: Resource # -> album do baralho atual
+
+# Caches
+var baralhoToLoad : Array[String] 
+var baralhoCache := []
+var albumBuffer : Array = [] #Usado na hora de salvar, tem uma cópia de todos os baralhos que foram modificados durante o uso do programa.
+
+
 var prior : Node
-var albBUFFER : Array = [] #Usado na hora de salvar, tem uma cópia de todos os baralhos que foram modificados durante o uso do programa.
-
-var toLoad : Array[String] 
-var cache_ := []
-
 enum M {
 	LOADING,
 	INICIAL, 
@@ -36,7 +38,7 @@ func _ready() -> void:
 	else:
 		pth = OS.get_executable_path().get_base_dir()
 	decks = pth.path_join(decks)
- # get_toLoad is called from the loading screen scene
+ # get_baralhoToLoad is called from the loading screen scene
 	menus = { 
 	M.INICIAL : load("res://Scenes/pages/menu_inicial.tscn"),
 	M.RANKING : load("res://Scenes/pages/ranking.tscn"),
@@ -48,12 +50,12 @@ func _ready() -> void:
 }
 
 	
-func get_toLoad() -> void:
+func get_baralhoToLoad() -> void:
 	var fldr := DirAccess.open(G.decks)
 	print(G.decks)
 	var _decks := get_valid_decks(fldr.get_directories())
-	G.toLoad = G.toLoad + _decks
-	assert(G.toLoad.size() != 0, "ERROR NO DECKS AVAILABLE")
+	G.baralhoToLoad = G.baralhoToLoad + _decks
+	assert(G.baralhoToLoad.size() != 0, "ERROR NO DECKS AVAILABLE")
 	
 func get_valid_cards(_pth: String) -> PackedStringArray:
 	var fldr := DirAccess.open(_pth)

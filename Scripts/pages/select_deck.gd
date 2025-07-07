@@ -9,7 +9,7 @@ func _ready():
 
 func refreshDecks() -> void:
 	var bS : Array
-	for deck in G.cache_:
+	for deck in G.baralhoCache:
 		var ab : Resource
 		if not(has_album(deck)):
 			ab = makeAlbum(deck)
@@ -23,7 +23,7 @@ func refreshDecks() -> void:
 			k = false
 		$ScrollContainer/GridContainer.add_child(_but)
 	if G.albumAt:
-		_barSelected(G.barINFO, G.albumAt)
+		_barSelected(G.baralhoAT, G.albumAt)
 	elif bS:
 		_barSelected(bS[0], bS[1])
 
@@ -39,16 +39,16 @@ func makeAlbum(deck : Resource) -> Resource:
 
 func _barSelected(deck : Resource, alb : Resource) -> void:
 	G.albumAt = alb
-	if not(G.albumAt in G.albBUFFER):
-		G.albBUFFER.append(G.albumAt)
-	G.barINFO = deck
+	if not(G.albumAt in G.albumBuffer):
+		G.albumBuffer.append(G.albumAt)
+	G.baralhoAT = deck
 	G.albumAt.performances.sort()
 	G.albumAt.completedCartas = stripClones(G.albumAt.completedCartas)
-	organize(G.barINFO.cartas[0], 1)
-	set_anosOrdem()
-	G.baralhoAtual = G.decks + G.barINFO.nome
+	organize(G.baralhoAT.cartas[0], 1)
+	#set_anosOrdem()
+	G.baralhoAtual = G.decks + G.baralhoAT.nome
 	updateDesc(deck)
-	$nomeDeck.text = G.barINFO.nome
+	$nomeDeck.text = G.baralhoAT.nome
 	if G.albumAt.performances:
 		$maPont.text = "Maior pontuação = " + str(G.albumAt.performances[-1])
 	else:
@@ -66,11 +66,11 @@ func stripClones(a: Array) -> Array:
 	return sb
 
 
-func set_anosOrdem() -> void:
-	if not(G.anosOrdem):
-		G.anosOrdem = []
-	for ano in G.barINFO.cartas[0]:
-		G.anosOrdem.append(int(ano[1]))
+# func set_anosOrdem() -> void:
+# 	if not(G.anosOrdem):
+# 		G.anosOrdem = []
+# 	for ano in G.baralhoAT.cartas[0]:
+# 		G.anosOrdem.append(int(ano[1]))
 
 func organize(a : Array, ano : int) -> void: # this function is absolutely stupid.
 	var _k = a.size()

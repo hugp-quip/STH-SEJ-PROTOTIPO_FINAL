@@ -15,6 +15,7 @@ func _ready() -> void:
 func _physics_process(_delta):
 	global_position = get_global_mouse_position() - offset
 	if Input.is_action_just_released("click"):
+	
 		var recent_area : Array[Area2D] = $Area2D.get_overlapping_areas()
 		if recent_area.size() <= 0:
 			cartaNãoColocadaEmSlot.emit()
@@ -23,14 +24,17 @@ func _physics_process(_delta):
 
 		if card_with_mouse is CardDisplay and card_with_mouse != null:
 			if card_with_mouse.is_slot:
-				
+			
 				cartaColocadaEmSlot.emit(card_with_mouse)
 
 			elif card_with_mouse.draggable:
-
+			
 				cartaColocadaEmCarta.emit(card_with_mouse)
+			else:
+				cartaNãoColocadaEmSlot.emit()
 
 		else: 
+			
 				cartaNãoColocadaEmSlot.emit()
 
 		queue_free()

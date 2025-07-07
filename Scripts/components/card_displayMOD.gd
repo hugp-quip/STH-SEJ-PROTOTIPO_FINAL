@@ -12,7 +12,7 @@ var descDICA
 
 
 func atualizar() -> void:
-	dados_carta = G.barINFO.cartas[0][cardId]
+	dados_carta = G.baralhoAT.cartas[0][cardId]
 	expand_mode = EXPAND_IGNORE_SIZE
 	texture = load("res://Assets/carta.png")
 	#print(G.baralhoAtual + dados_carta[-1])

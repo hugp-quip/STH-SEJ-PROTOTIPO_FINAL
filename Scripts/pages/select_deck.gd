@@ -1,8 +1,8 @@
 extends Control
 
 signal switch(new:int, data : Dictionary)
-var barBut = load("res://Scenes/components/bar_but.tscn")
-var k : bool = true
+var barBut : PackedScene = load("res://Scenes/components/bar_but.tscn")
+var is_first_time : bool = true
 var baralhoAT: BaralhoINFO
 var albumAT : AlbumRes
 
@@ -11,21 +11,21 @@ func _ready():
 
 func refreshDecks() -> void:
 	var bS : Array
-	for deck in G.baralhoCache:
+	for deck : Resource in G.oLDbaralhoCache:
 		var ab : Resource
 		if not(has_album(deck)):
 			ab = makeAlbum(deck)
 		else:
-			ab = ResourceLoader.load(G.pth + "/" + G.info + "ALBUNS/" + deck.nome+"ALBRES"+ ".tres")
-		var _but = barBut.instantiate()
+			ab = ResourceLoader.load((G.pth + "/" + G.info + "ALBUNS/" + deck.nome +"ALBRES"+ ".tres"))
+		var _but := barBut.instantiate()
 		_but.data = deck
 		_but.pressed.connect(_barSelected.bind(deck, ab))
-		if k:
+		if is_first_time:
 			bS = [deck, ab]
-			k = false
+			is_first_time = false
 		$ScrollContainer/GridContainer.add_child(_but)
 	if G.albumAT:
-		_barSelected(G.baralhoAT, G.albumAT)
+		_barSelected(G.oLDbaralhoAT, G.albumAT)
 	elif bS:
 		_barSelected(bS[0], bS[1])
 
@@ -45,14 +45,14 @@ func _barSelected(deck : Resource, alb : Resource) -> void:
 	G.albumAT = alb
 	if not(G.albumAT in G.albumBuffer):
 		G.albumBuffer.append(G.albumAT)
-	G.baralhoAT = deck
+	G.oLDbaralhoAT = deck
 	G.albumAT.performances.sort()
 	G.albumAT.completedCartas = stripClones(G.albumAT.completedCartas)
-	organize(G.baralhoAT.cartas[0], 1)
+	organize(G.oLDbaralhoAT.cartas[0], 1)
 	#set_anosOrdem()
-	G.baralhoAtual = G.decks + G.baralhoAT.nome
+	G.baralhoAtual = G.decks + G.oLDbaralhoAT.nome
 	updateDesc(deck)
-	$nomeDeck.text = G.baralhoAT.nome
+	$nomeDeck.text = G.oLDbaralhoAT.nome
 	if G.albumAT.performances:
 		$maPont.text = "Maior pontuação = " + str(G.albumAT.performances[-1])
 	else:
@@ -73,7 +73,7 @@ func stripClones(a: Array) -> Array:
 # func set_anosOrdem() -> void:
 # 	if not(G.anosOrdem):
 # 		G.anosOrdem = []
-# 	for ano in G.baralhoAT.cartas[0]:
+# 	for ano in G.oLDbaralhoAT.cartas[0]:
 # 		G.anosOrdem.append(int(ano[1]))
 
 func organize(a : Array, ano : int) -> void: # this function is absolutely stupid.

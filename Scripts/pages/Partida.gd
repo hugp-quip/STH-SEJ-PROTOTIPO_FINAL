@@ -30,7 +30,7 @@ func criar_partida(_nTentativas: int, _nRodadas: int, _baralhoAT: BaralhoINFO, _
 
 	baralho = Baralho.new()
 	baralho.criar_baralho(_baralhoAT.cartas[0])
-	nRodadas = clamp(len(G.baralhoAT.cartas[0])/5.0, 1, 5)
+	nRodadas = clamp(len(G.oLDbaralhoAT.cartas[0])/5.0, 1, 5)
 	assert( nRodadas > 0, "TRIED CREATING PARTIDA WITH TOO FEW RODADAS!!!")
 	set_deferred("nRodadasOG", nRodadas)
 	call_deferred("atualizar_rodada_counter")

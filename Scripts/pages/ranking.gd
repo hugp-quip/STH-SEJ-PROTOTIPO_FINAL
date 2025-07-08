@@ -5,7 +5,7 @@ signal switch(new : int)
 var p = load("res://Scenes/components/performance.tscn")
 
 func _ready() -> void:
-	$Label.text = "Exibindo performances salvas para: " + G.baralhoAT.nome
+	$Label.text = "Exibindo performances salvas para: " + G.oLDbaralhoAT.nome
 	if G.albumAT.performances.size() > 0:
 		populateScroll()
 	else:

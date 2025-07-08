@@ -13,12 +13,12 @@ func _ready() -> void:
 
 func updateCompletion() -> void:
 	print(G.albumAT.completedCartas)
-	$Complete.text = str(G.albumAT.completedCartas.size()) + "/" + str(G.baralhoAT.cartas[0].size())
+	$Complete.text = str(G.albumAT.completedCartas.size()) + "/" + str(G.oLDbaralhoAT.cartas[0].size())
 
 
 
 func populateScroll() -> void:
-	for card in G.baralhoAT.cartas[0].size():
+	for card in G.oLDbaralhoAT.cartas[0].size():
 		#var _but = but.instantiate()
 		if card in G.albumAT.completedCartas:
 			var _but = but.instantiate()
@@ -44,7 +44,7 @@ func _on_but_pressed(id) -> void:
 func updateDisplay(id) -> void:
 	$CardDisplay.cardId = id
 	$CardDisplay.atualizar()
-	$cardDica.text = G.baralhoAT.cartas[0][id][2]
+	$cardDica.text = G.oLDbaralhoAT.cartas[0][id][2]
 	
 
 

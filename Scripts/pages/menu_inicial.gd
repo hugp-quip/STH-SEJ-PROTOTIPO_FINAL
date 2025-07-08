@@ -3,7 +3,7 @@ extends Control
 signal switch(new : int)
 
 func _ready() -> void:
-	call_deferred("_mudarBaralhoPath", "Baralho atual = " + G.baralhoAtual)
+	call_deferred("_mudarBaralhoPath", "Baralho atual = " + (G.baralhoAtual if G.baralhoAtual else G.oLDbaralhoCache[1].nome))
 
 func _mudarBaralhoPath(new:String) -> void: # -> SelectBar
 	var b = get_node("buttons")

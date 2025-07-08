@@ -8,12 +8,17 @@ var info : String = "INFO/"
 var decks : String = "Decks/"
 
 # PartidaResources
-var baralhoAT : BaralhoINFO # -> info for currently selected decK
+var oLDbaralhoAT : BaralhoINFO # -> info for currently selected decK
+var baralhoAT : BarRES
 var albumAT: AlbumRes # -> album do baralho atual
 
 # Caches
 var baralhoToLoad : Array[String] 
+
+var oLDbaralhoCache := []
 var baralhoCache := []
+var cartaCache := []
+
 var albumBuffer : Array = [] #Usado na hora de salvar, tem uma cópia de todos os baralhos que foram modificados durante o uso do programa.
 
 
@@ -29,7 +34,7 @@ enum M {
 	EXIT
 }
 
-var menus : Dictionary 
+var menus : Dictionary
 
 
 
@@ -40,7 +45,6 @@ func _ready() -> void:
 	else:
 		pth = OS.get_executable_path().get_base_dir()
 	decks = pth.path_join(decks)
- # get_baralhoToLoad is called from the loading screen scene
 	menus = { 
 	M.INICIAL : load("res://Scenes/pages/menu_inicial.tscn"),
 	M.RANKING : load("res://Scenes/pages/ranking.tscn"),

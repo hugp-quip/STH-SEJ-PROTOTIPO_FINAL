@@ -25,12 +25,12 @@ func criar_carta(id) -> void:
 	atualizar()
 
 func atualizar() -> void:
+	
+	dados_carta = G.oLDbaralhoAT.cartas[0][cardId]
+
 	is_slot = false
 	expand_mode = EXPAND_IGNORE_SIZE
 	texture = Res.cardBackground
-
-	dados_carta = G.baralhoAT.cartas[0][cardId]
-	
 	var maybeRodada := get_parent().get_parent().get_parent() if get_parent().get_parent().get_parent() else get_parent()
 	var is_from_rodada := maybeRodada.name == "Rodada"
 	

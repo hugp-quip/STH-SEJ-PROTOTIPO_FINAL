@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://c46wy5b5t184f"]
 
-[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_esvxm"]
-[ext_resource type="PackedScene" uid="uid://cvfjs15tgkvlo" path="res://Scenes/pages/load_screen.tscn" id="3_wk3vn"]
+[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_7p0mn"]
+[ext_resource type="PackedScene" uid="uid://cvfjs15tgkvlo" path="res://Scenes/pages/load_screen.tscn" id="2_8s435"]
 
-[node name="Mundo" type="Node"]
-script = ExtResource("1_esvxm")
+[node name="Main" type="Node"]
+script = ExtResource("1_7p0mn")
 metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="."]
@@ -24,5 +24,5 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="LoadScreen" parent="Menu" instance=ExtResource("3_wk3vn")]
+[node name="LoadScreen" parent="Menu" instance=ExtResource("2_8s435")]
 layout_mode = 1

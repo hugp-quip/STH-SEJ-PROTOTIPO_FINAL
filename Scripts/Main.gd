@@ -15,14 +15,16 @@ func _on_switch(new:int, data: Dictionary = {"baralhoAT": null, "albumAT": null}
 	elif new == G.M.JOGAR:
 		atual.queue_free()
 		atual = G.menus[new].instantiate()
-
+		assert(data.baralhoAT != null, "TRIED CREATING PARTIDA WITHOUT BARALHO.")
+		print("data = " + str(data.baralhoAT))
 		atual.criar_partida(5, 3, data["baralhoAT"], data["albumAT"])
 
 		menu.add_child(atual)
 		menu.get_child(1).switch.connect(_on_switch)
 		return 0
 	elif new == G.M.INICIAL:
-		create_new_baralhos()
+		#create_new_baralhos()
+		pass
 	atual.queue_free()
 	#print(G)
 	#print(G.menus[new])
@@ -63,7 +65,7 @@ func create_new_baralhos() -> void:
 
 func barTransition() -> void:
 	var _OLDbaralhos : Array
-	_OLDbaralhos = G.baralhoCache 
+	_OLDbaralhos = G.oLDbaralhoCache 
 
 	var idBaralho : = 0 
 	var idCarta := 0

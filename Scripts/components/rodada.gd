@@ -35,8 +35,8 @@ func getCartaImagens(_rodadaCartas) -> Dictionary:
 	var ret : Dictionary = {}
 	#print(_rodadaCartas)
 	for id in _rodadaCartas:
-		print(id)
-		ret[G.baralhoAT.cartas[0][id][-1]] = G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + G.baralhoAT.cartas[0][id][-1])
+		#print(id)
+		ret[G.oLDbaralhoAT.cartas[0][id][-1]] = G.makeResourceFromImage(G.baralhoAtual + "/imagens/" + G.oLDbaralhoAT.cartas[0][id][-1])
 	#print(ret)
 	return ret
 

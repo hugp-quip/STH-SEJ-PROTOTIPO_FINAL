@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SEJ_PROTOTIPO"
-run/main_scene="res://Scenes/Mundo.tscn"
+run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -24,10 +24,7 @@ util="*res://util.gd"
 [debug]
 
 gdscript/warnings/untyped_declaration=1
-gdscript/warnings/unsafe_property_access=1
-gdscript/warnings/unsafe_method_access=1
 gdscript/warnings/unsafe_call_argument=1
-gdscript/warnings/return_value_discarded=1
 
 [display]
 

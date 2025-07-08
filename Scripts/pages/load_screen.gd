@@ -12,7 +12,7 @@ func _ready():
 func loadRES():
 	var full = G.baralhoToLoad.size()
 	for i in G.baralhoToLoad.size():
-		G.baralhoCache.push_back(load(G.baralhoToLoad[i]))
+		G.oLDbaralhoCache.push_back(load(G.baralhoToLoad[i]))
 		$ProgressBar.value = (i+1)*100.0/full
 	call_deferred("emit_signal", "switch", G.M.INICIAL)
 	

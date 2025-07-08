@@ -13,9 +13,13 @@ func _on_switch(new:int, data: Dictionary = {"baralhoAT": null, "albumAT": null}
 		get_tree().quit()
 		return 4
 	elif new == G.M.JOGAR:
+		assert(data.baralhoAT != null, "TRIED CREATING PARTIDA WITHOUT BARALHO.")
+		assert(not (data.baralhoAT is BaralhoINFO), "TRIED STARTING A PARTIDA WITH THE OLD BARALHO MODEL.")
+		
+		# btw to find a type by name use "type_string(type_off())"
 		atual.queue_free()
 		atual = G.menus[new].instantiate()
-		assert(data.baralhoAT != null, "TRIED CREATING PARTIDA WITHOUT BARALHO.")
+		
 		print("data = " + str(data.baralhoAT))
 		atual.criar_partida(5, 3, data["baralhoAT"], data["albumAT"])
 
@@ -25,6 +29,8 @@ func _on_switch(new:int, data: Dictionary = {"baralhoAT": null, "albumAT": null}
 	elif new == G.M.INICIAL:
 		#create_new_baralhos()
 		pass
+	
+	assert(new != G.M.ALBUM, "TRIED TO SWITCH TO ALBUM!!!")
 	atual.queue_free()
 	#print(G)
 	#print(G.menus[new])
@@ -49,18 +55,12 @@ func saveGam(alb) -> void:
 		print(ResourceSaver.save(alb, G.pth + G.info + "ALBUNS/"+ alb.nome + ".tres"))
 
 func create_new_baralhos() -> void:
-
-	var _OLDalbuns : Array
-	for albTRES in DirAccess.open("res://INFO/ALBUNS").get_files():
-		print(albTRES)
-		if albTRES != ".gitignore":
-			_OLDalbuns.append(ResourceLoader.load("res://INFO/ALBUNS/" + albTRES))
-
-	#print(_OLDalbuns)
-	#print(_OLDbaralhos)
-
-	barTransition()
-
+	var cartaID : = 0
+	for bar in G.baralhoCache:
+		for i in bar.cartas.size():
+			bar.cartas[i] = cartaID
+			cartaID+=1
+		ResourceSaver.save(bar, "res://Resources/Baralhos/" + str(bar.nome) + ".tres")
 
 
 func barTransition() -> void:
@@ -96,7 +96,7 @@ func barTransition() -> void:
 		
 		#print(_cartas)
 		for carta in _REScartas:
-			_cartas.append("res://Resources/Cartas/" + str(carta.id) + ".tres")
+			_cartas.append(carta.id)
 			#ResourceSaver.save(carta, "res://Resources/Cartas/" + str(carta.id) + ".tres")
 		
 		

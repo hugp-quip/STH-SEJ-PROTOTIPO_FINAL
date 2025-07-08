@@ -3,61 +3,81 @@ extends Control
 signal switch(new:int, data : Dictionary)
 var barBut : PackedScene = load("res://Scenes/components/bar_but.tscn")
 var is_first_time : bool = true
-var baralhoAT: BaralhoINFO
+var baralhoAT: BarRES
 var albumAT : AlbumRes
 
-func _ready():
+func _ready() -> void:
 	refreshDecks()
 
+
 func refreshDecks() -> void:
-	var bS : Array
-	for deck : Resource in G.oLDbaralhoCache:
-		var ab : Resource
-		if not(has_album(deck)):
-			ab = makeAlbum(deck)
-		else:
-			ab = ResourceLoader.load((G.pth + "/" + G.info + "ALBUNS/" + deck.nome +"ALBRES"+ ".tres"))
+	for bar : Resource in G.baralhoCache:
 		var _but := barBut.instantiate()
-		_but.data = deck
-		_but.pressed.connect(_barSelected.bind(deck, ab))
-		if is_first_time:
-			bS = [deck, ab]
-			is_first_time = false
+		_but.data = bar
+		var alb := AlbumRes.new() # album falso, pois a feature, está desativada e será re-feita.
+		_but.pressed.connect(_barSelected.bind(bar, alb))
 		$ScrollContainer/GridContainer.add_child(_but)
-	if G.albumAT:
-		_barSelected(G.oLDbaralhoAT, G.albumAT)
-	elif bS:
-		_barSelected(bS[0], bS[1])
-
-func has_album(deck : Resource) -> bool:
-	return FileAccess.file_exists(G.pth + "/" + G.info + "ALBUNS/" + deck.nome+"ALBRES"+ ".tres")
-
-func makeAlbum(deck : Resource) -> Resource:
-	var new = AlbumRes.new()
-	new.nome = deck.nome+"ALBRES"
-	ResourceSaver.save(new, G.pth + "/" + G.info + "/ALBUNS/"+ new.nome + ".tres")
-	return new
+	if G.baralhoAT: # -> if no baralho selected, then select one.
+		_barSelected(G.baralhoAT, G.albumAT)
+	else:
+		_barSelected(G.baralhoCache[0] as BarRES, AlbumRes.new())
 
 
-func _barSelected(deck : Resource, alb : Resource) -> void:
-	baralhoAT = deck
+# func refreshDecks() -> void:
+# 	var bS : Array
+# 	for deck : Resource in G.oLDbaralhoCache:
+# 		var ab : Resource
+# 		if not(has_album(deck)):
+# 			ab = makeAlbum(deck)
+# 		else:
+# 			ab = ResourceLoader.load((G.pth + "/" + G.info + "ALBUNS/" + deck.nome +"ALBRES"+ ".tres"))
+# 		var _but := barBut.instantiate()
+# 		_but.data = deck
+# 		_but.pressed.connect(_barSelected.bind(deck, ab))
+# 		if is_first_time:
+# 			bS = [deck, ab]
+# 			is_first_time = false
+# 		$ScrollContainer/GridContainer.add_child(_but)
+# 	if G.albumAT:
+# 		_barSelected(G.oLDbaralhoAT, G.albumAT)
+# 	elif bS:
+# 		_barSelected(bS[0], bS[1])
+
+# func has_album(deck : Resource) -> bool:
+# 	return FileAccess.file_exists(G.pth + "/" + G.info + "ALBUNS/" + deck.nome+"ALBRES"+ ".tres")
+
+# func makeAlbum(deck : Resource) -> Resource:
+# 	var new = AlbumRes.new()
+# 	new.nome = deck.nome+"ALBRES"
+# 	ResourceSaver.save(new, G.pth + "/" + G.info + "/ALBUNS/"+ new.nome + ".tres")
+# 	return new
+
+
+func _barSelected(bar : BarRES, alb : Resource) -> void:
+	baralhoAT = bar
 	albumAT = alb
 	G.albumAT = alb
-	if not(G.albumAT in G.albumBuffer):
-		G.albumBuffer.append(G.albumAT)
-	G.oLDbaralhoAT = deck
-	G.albumAT.performances.sort()
-	G.albumAT.completedCartas = stripClones(G.albumAT.completedCartas)
-	organize(G.oLDbaralhoAT.cartas[0], 1)
-	#set_anosOrdem()
-	G.baralhoAtual = G.decks + G.oLDbaralhoAT.nome
-	updateDesc(deck)
-	$nomeDeck.text = G.oLDbaralhoAT.nome
-	if G.albumAT.performances:
-		$maPont.text = "Maior pontuação = " + str(G.albumAT.performances[-1])
-	else:
-		$maPont.text = "Não há pontuações para este baralho." 
-	$albComplete.text = "Album: " + str(alb.completedCartas.size()) + "/" + str(deck.cartas[0].size())
+	G.baralhoAT = bar
+
+	# if not(G.albumAT in G.albumBuffer):
+	# 	G.albumBuffer.append(G.albumAT)
+
+	# G.albumAT.performances.sort()
+	# G.albumAT.completedCartas = stripClones(G.albumAT.completedCartas)
+	
+	# desativada, pois não sei sua função...
+	# organize(G.oLDbaralhoAT.cartas[0], 1)
+	
+	G.baralhoAtual = G.decks + G.baralhoAT.nome
+
+	$"Descrição/DescText".text = bar.descrição
+
+	$nomeDeck.text = G.baralhoAT.nome
+	# if G.albumAT.performances:
+	# 	$maPont.text = "Maior pontuação = " + str(G.albumAT.performances[-1])
+	# else:
+	# 	$maPont.text = "Não há pontuações para este baralho." 
+	#$albComplete.text = "Album: " + str(alb.completedCartas.size()) + "/" + str(deck.cartas[0].size())
 	$JOGAR.disabled = false
 	$SeeAlb.disabled = false
 	$SeeRanking.disabled = false
@@ -92,8 +112,7 @@ func organize(a : Array, ano : int) -> void: # this function is absolutely stupi
 		_k-=1
 	a.reverse()
 
-func updateDesc(deck:Resource) -> void:
-	$"Descrição/DescText".text = deck.descrição
+
 
 
 func _on_voltar_pressed() -> void:

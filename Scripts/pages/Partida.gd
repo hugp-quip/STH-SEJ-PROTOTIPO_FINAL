@@ -6,7 +6,7 @@ var nTentativas : int
 var nRodadas : int
 var rodadaAtualText : String = "Rodada Atual = " 
 var baralho: Baralho 
-var baralhoAT: BaralhoINFO
+var baralhoAT: BarRES
 var albumAT: AlbumRes
 
 
@@ -22,15 +22,15 @@ signal switch(new : int)
 #func _ready() -> void:
 
 
-func criar_partida(_nTentativas: int, _nRodadas: int, _baralhoAT: BaralhoINFO, _albumAT: AlbumRes ) -> void:
+func criar_partida(_nTentativas: int, _nRodadas: int, _baralhoAT: BarRES, _albumAT: AlbumRes ) -> void:
 	nRodadas = _nRodadas
 	nTentativas = _nTentativas
 	baralhoAT = _baralhoAT
 	albumAT = _albumAT
 
 	baralho = Baralho.new()
-	baralho.criar_baralho(_baralhoAT.cartas[0])
-	nRodadas = clamp(len(G.oLDbaralhoAT.cartas[0])/5.0, 1, 5)
+	baralho.criar_baralho(_baralhoAT.cartas)
+	nRodadas = clamp(len(baralhoAT.cartas)/5.0, 1, 5)
 	assert( nRodadas > 0, "TRIED CREATING PARTIDA WITH TOO FEW RODADAS!!!")
 	set_deferred("nRodadasOG", nRodadas)
 	call_deferred("atualizar_rodada_counter")
@@ -153,15 +153,12 @@ func leave_alb() -> void:
 
 
 class Baralho:
-	var cartas : Array
+	var nCartas : int
 	var cartasUsadas : Array[int]
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new() 
 
 	func criar_baralho(_cartas: Array) -> void:
-		cartas = _cartas.duplicate(true)
-
-	func getCarta(id: int) -> int:
-		return cartas[id] 
+		nCartas = _cartas.size()
 
 	func useCarta(id: int) -> void:
 		cartasUsadas.append(id)
@@ -170,20 +167,19 @@ class Baralho:
 		for id : int in ids:
 			useCarta(id)
 			
-	func getMao(nCartas : int) -> Array[int]:
+	func getMao(n : int) -> Array[int]:
 		var i := 0
-		#print(nCartas)
-		assert(not(nCartas > cartas.size()), " ERROR, TOO MANY CARDS")
+		assert(not(n > nCartas), " ERROR, TOO MANY CARDS")
 		var ret : Array[int]= []
 		var sb : Array[int] = cartasUsadas.duplicate()
 		var i2 := 0
-		var n: int 
-		while i < nCartas:
-			assert(not(i2 > cartas.size()+10 ), " ERROR, INFINITE LOOP ON Partida.baralho.getMao()")
-			n = rng.randi_range(0, cartas.size()-1)
-			if not(n in sb):
-				ret.append(n)
-				sb.append(n)
+		var rand: int 
+		while i < n:
+			assert(not(i2 > nCartas ), " ERROR, INFINITE LOOP ON Partida.baralho.getMao()")
+			rand = rng.randi_range(0, nCartas-1)
+			if not(rand in sb):
+				ret.append(rand)
+				sb.append(rand)
 				i+=1
 			i2+=1
 		return ret

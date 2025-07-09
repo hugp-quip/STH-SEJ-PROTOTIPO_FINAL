@@ -58,7 +58,7 @@ func _barSelected(bar : BarRES, alb : Resource) -> void:
 	albumAT = alb
 	G.albumAT = alb
 	G.baralhoAT = bar
-
+	G.baralhoAtual = G.decks + G.baralhoAT.nome
 	# if not(G.albumAT in G.albumBuffer):
 	# 	G.albumBuffer.append(G.albumAT)
 
@@ -68,7 +68,7 @@ func _barSelected(bar : BarRES, alb : Resource) -> void:
 	# desativada, pois não sei sua função...
 	# organize(G.oLDbaralhoAT.cartas[0], 1)
 	
-	G.baralhoAtual = G.decks + G.baralhoAT.nome
+	
 
 	$"Descrição/DescText".text = bar.descrição
 

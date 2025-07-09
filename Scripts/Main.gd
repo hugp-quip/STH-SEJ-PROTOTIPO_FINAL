@@ -5,9 +5,21 @@ extends Node
 @onready var atual : Node = menu.get_child(0)
 
 func _ready() -> void:
+	#print("create")
+	#create_new_baralhos()
 	menu.get_child(0).switch.connect(_on_switch)
 
+func partidaTESTE() -> void:
+
+	G.baralhoAT = G.baralhoCache[2]
+	G.baralhoAtual = G.decks + G.baralhoAT.nome
+
 func _on_switch(new:int, data: Dictionary = {"baralhoAT": null, "albumAT": null}) -> int:
+	partidaTESTE()
+	atual.queue_free()
+	atual = load("res://Scenes/pages/NEWPartida.tscn").instantiate()
+	return 1
+
 	if new == G.M.EXIT:
 		savebeforequiting()
 		get_tree().quit()
@@ -54,57 +66,70 @@ func saveGam(alb) -> void:
 	if alb:
 		print(ResourceSaver.save(alb, G.pth + G.info + "ALBUNS/"+ alb.nome + ".tres"))
 
-func create_new_baralhos() -> void:
-	var cartaID : = 0
-	for bar in G.baralhoCache:
-		for i in bar.cartas.size():
-			bar.cartas[i] = cartaID
-			cartaID+=1
-		ResourceSaver.save(bar, "res://Resources/Baralhos/" + str(bar.nome) + ".tres")
+# func create_new_baralhos() -> void:
+# 	print("creating")
+# 	var cartaID : = 0
+# 	var fldr := DirAccess.open("res://Decks/")
+# 	var id = 0
+# 	var curCarta = 0
+# 	for bar in fldr.get_directories():
+# 		print("res://Decks/"+bar)
+# 		var fldr2 := DirAccess.open("res://Decks/"+bar)
+# 		print(fldr2.get_files())
+# 		var barINFO : BaralhoINFO = ResourceLoader.load("res://Decks/"+bar+ "/"+fldr2.get_files()[0]) #deve haver somente uma file.
+# 		var _cartas := []
+# 		for _carta : Array in barINFO.cartas[0]:
+# 			curCarta += 1
+# 			_cartas.append(curCarta)
+# 		print(_cartas)
+# 		var barRES : BarRES = BarRES.new(id, barINFO.nome, barINFO.imagem, barINFO.descrição, _cartas)
+
+# 		ResourceSaver.save(barRES, "res://Resources/Baralhos/" + str(barRES.nome) + ".tres")
+# 		id+=1
 
 
-func barTransition() -> void:
-	var _OLDbaralhos : Array
-	_OLDbaralhos = G.oLDbaralhoCache 
+# func barTransition() -> void:
+# 	var _OLDbaralhos : Array
+# 	_OLDbaralhos = G.oLDbaralhoCache 
 
-	var idBaralho : = 0 
-	var idCarta := 0
-	for baralho : BaralhoINFO in _OLDbaralhos:
-		var bar : BarRES = BarRES.new()
-		var imagem : ImageTexture = baralho.imagem
-		ResourceSaver.save(imagem,  "res://Resources/Baralhos_Imagens/" + str(idBaralho) + ".tres")
-		var _REScartas : = []
-		var _cartas := []	
-		for carta : Array in baralho.cartas[0]:
-			var _carta : CartaRES = CartaRES.new() 
-			var img : ImageTexture = G.makeResourceFromImage("res://Decks/" + baralho.nome + "/imagens/" + carta[-1])
+# 	var idBaralho : = 0 
+# 	var idCarta := 0
+# 	for baralho : BaralhoINFO in _OLDbaralhos:
+# 		var bar : BarRES = BarRES.new()
+# 		var imagem : ImageTexture = baralho.imagem
+# 		ResourceSaver.save(imagem,  "res://Resources/Baralhos_Imagens/" + str(idBaralho) + ".tres")
+# 		var _REScartas : = []
+# 		var _cartas := []	
+# 		for carta : Array in baralho.cartas[0]:
+# 			var _carta : CartaRES = CartaRES.new() 
+# 			var img : ImageTexture = G.makeResourceFromImage("res://Decks/" + baralho.nome + "/imagens/" + carta[-1])
 			
-			#print("res://Decks/" + baralho.nome + "/imagens/" + carta[-1])
+# 			#print("res://Decks/" + baralho.nome + "/imagens/" + carta[-1])
 
-			_carta.criar_cartaRES(
-				idCarta,
-				carta[0],
-				carta[2],
-				carta[1],
-				img
-				)
+# 			_carta.criar_cartaRES(
+# 				idCarta,
+# 				carta[0],
+# 				carta[2],
+# 				carta[1],
+# 				img
+# 				)
 			
-			#ResourceSaver.save(img, "res://Resources/Cartas_Imagens/" + str(_carta.id) + ".tres")
-			_REScartas.append( _carta )
+# 			#ResourceSaver.save(img, "res://Resources/Cartas_Imagens/" + str(_carta.id) + ".tres")
+# 			_REScartas.append( _carta )
 			
-			idCarta+=1
+# 			idCarta+=1
 		
-		#print(_cartas)
-		for carta in _REScartas:
-			_cartas.append(carta.id)
-			#ResourceSaver.save(carta, "res://Resources/Cartas/" + str(carta.id) + ".tres")
+# 		#print(_cartas)
+# 		for carta in _REScartas:
+# 			_cartas.append(carta.id)
+# 			#ResourceSaver.save(carta, "res://Resources/Cartas/" + str(carta.id) + ".tres")
 		
 		
-		bar.criar_baralhoRES(idBaralho, baralho.nome, imagem, baralho.descrição, _cartas)
+# 		bar.criar_baralhoRES(idBaralho, baralho.nome, imagem, baralho.descrição, _cartas)
 
-		ResourceSaver.save(bar, "res://Resources/Baralhos/" + str(idBaralho) + ".tres")
+# 		ResourceSaver.save(bar, "res://Resources/Baralhos/" + str(idBaralho) + ".tres")
 		
-		idBaralho +=1
+# 		idBaralho +=1
 
 		
 

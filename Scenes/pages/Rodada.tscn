@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Scripts/components/rodada.gd" id="1_716og"]
 [ext_resource type="PackedScene" uid="uid://b8tjf6dl03tbb" path="res://Scenes/components/feed_back.tscn" id="2_km8ub"]
 [ext_resource type="Script" path="res://Scenes/components/table.gd" id="2_padpw"]
-[ext_resource type="Script" path="res://Scripts/components/mesa.gd" id="3_qwoxm"]
 [ext_resource type="Script" path="res://Scripts/components/mão.gd" id="4_2vhbr"]
+[ext_resource type="Script" path="res://Scripts/components/mantenedor.gd" id="4_111xv"]
 
 [node name="Rodada" type="Control"]
 layout_mode = 3
@@ -58,7 +58,7 @@ custom_minimum_size = Vector2(186, 204)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 5
-script = ExtResource("3_qwoxm")
+script = ExtResource("4_111xv")
 metadata/_edit_use_anchors_ = true
 
 [node name="Mao" type="HBoxContainer" parent="game"]

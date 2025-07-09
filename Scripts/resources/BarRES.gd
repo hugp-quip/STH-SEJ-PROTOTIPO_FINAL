@@ -5,16 +5,15 @@ class_name BarRES
 @export var id : int
 @export var nome : String 
 @export var imagem : ImageTexture
-@export var descrição : String
+@export var descricao : String
 @export var cartas : Array 
 
-func _init() -> void:
-	self.nome = "Sem nome."
-	self.descrição = "Descrição não inserida."
+func criar_BarRES(_id: int, _nome: String, _imagem: ImageTexture, _descricao : String, _cartas: Array) -> void:
+	assert(_cartas.size() >= 5, "UM BARALHO DEVE TER AO MENOS 5 CARTAS!!!!")
+	id = _id
+	nome = _nome
+	imagem = _imagem
+	descricao = _descricao
+	cartas = _cartas
 
-func criar_baralhoRES(_id: int, n: String, i: ImageTexture, d : String, _cartas: Array) -> void:
-	self.id = _id
-	self.nome = n
-	self.imagem = i
-	self.descrição = d
-	self.cartas = _cartas
+

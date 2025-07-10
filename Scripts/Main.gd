@@ -18,6 +18,11 @@ func _on_switch(new:int, data: Dictionary = {"baralhoAT": null, "albumAT": null}
 	partidaTESTE()
 	atual.queue_free()
 	atual = load("res://Scenes/pages/NEWPartida.tscn").instantiate()
+	add_child(atual)
+	var part : PartidaRES = PartidaRES.new()
+	part.criar(G.baralhoAT)
+	atual.criar_partida(part)
+
 	return 1
 
 	if new == G.M.EXIT:

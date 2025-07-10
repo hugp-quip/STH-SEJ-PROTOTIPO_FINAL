@@ -14,7 +14,15 @@ func comecar(_baralhoAT: BarRES, n_rodadas: int) -> void:
 func criar_hand_para_partida() -> Array:
 	var cartas_restantes : int = cartas.size() -  used_cartas.size() 
 	assert(cartas_restantes > 1, "TENTOU CRIAR MÃO COM CARTAS INSUFICIENTES!!!")
-	return _get_hand(clamp(cartas_restantes, 2, 5) as int)
+	var _cartaIDS := _get_hand(clamp(cartas_restantes, 2, 5) as int)
+	var cartasRES : Array = []
+	print(_cartaIDS)
+	for id : int in _cartaIDS:
+		var res := load(Res.pathCartas.path_join(str(id)+".tres"))
+		cartasRES.append(res)
+	return cartasRES
+
+
 
 func _get_hand(n_cartas : int) -> Array:
 	assert(n_cartas > 0 and n_cartas < cartas.size() - used_cartas.size(), "NÚMERO DE CARTAS REQUISITADO MAIOR DO QUE O TAMANHO RESTANTE DO BARALHO .")

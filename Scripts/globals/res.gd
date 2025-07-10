@@ -4,3 +4,4 @@ extends Node
 @onready var slotBackground := preload("res://Assets/slot.PNG")
 @onready var rodada := preload("res://Scenes/pages/Rodada.tscn")
 @onready var cardDisplay := preload("res://Scenes/components/OLDCardDisplay.tscn")
+var pathCartas := "res://Resources/Cartas"

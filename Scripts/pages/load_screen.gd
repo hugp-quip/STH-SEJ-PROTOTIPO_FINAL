@@ -8,11 +8,11 @@ var baralhoToLoad : Array
 
 func _ready() -> void:
 	baralhoToLoad = G.get_baralhoToLoad()
-	print(baralhoToLoad)
-	var testeCarta = load("res://Resources/Cartas/0.tres")
-	var testeBaralho = load("res://Resources/Baralhos/AIDS.tres")
-	print("ERROR: "+str(load(baralhoToLoad[0])))
-	assert(false)
+	# print(baralhoToLoad)
+	# var testeCarta = load("res://Resources/Cartas/0.tres")
+	# var testeBaralho = load("res://Resources/Baralhos/AIDS.tres")
+	# print("ERROR: "+str(load(baralhoToLoad[0])))
+	# assert(false)
 	#loadT.start(loadRES)
 	loadRES()
 	

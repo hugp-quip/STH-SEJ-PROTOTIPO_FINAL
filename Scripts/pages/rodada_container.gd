@@ -2,5 +2,9 @@ extends Node
 
 class_name RodadaContainer
 
-func criar_rodada( _cartas : Array ):
+var cartasCache : Array = []
+
+func criar_rodada(_cartasCache : Array ):
+	cartasCache = _cartasCache
+	
 	pass

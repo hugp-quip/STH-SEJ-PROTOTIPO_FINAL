@@ -6,20 +6,27 @@
 [ext_resource type="FontFile" uid="uid://gnnpsasijrs6" path="res://Assets/CardFont.tres" id="3_48sai"]
 [ext_resource type="Script" path="res://Scripts/components/ui_handlernode.gd" id="3_mmeom"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lej71"]
+size = Vector2(378.5, 543.561)
+
 [sub_resource type="Theme" id="Theme_7kta4"]
 default_font = ExtResource("3_48sai")
 default_font_size = 30
 Label/colors/font_color = Color(0, 0, 0, 1)
 Label/colors/font_outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lej71"]
-size = Vector2(378.5, 543.561)
-
 [node name="node_carta_display" type="Sprite2D"]
 y_sort_enabled = true
 scale = Vector2(0.5, 0.484266)
 texture = ExtResource("1_1nxwo")
 script = ExtResource("2_we6fa")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+position = Vector2(-1.25, -0.235565)
+shape = SubResource("RectangleShape2D_lej71")
 
 [node name="UIHandlernode" type="Node2D" parent="."]
 script = ExtResource("3_mmeom")
@@ -39,10 +46,3 @@ scale = Vector2(1.05554, 0.853007)
 texture = ExtResource("2_i3nd2")
 
 [node name="GameplayHandler" type="Node2D" parent="."]
-
-[node name="Area2D" type="Area2D" parent="GameplayHandler"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayHandler/Area2D"]
-visible = false
-position = Vector2(-1.25, -0.235565)
-shape = SubResource("RectangleShape2D_lej71")

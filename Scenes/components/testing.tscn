@@ -5,23 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://c3ld55lwboday" path="res://slot.tscn" id="2_7t2w8"]
 [ext_resource type="Script" path="res://Scripts/components/slot_manager.gd" id="2_vwggf"]
 
-[node name="Node2D" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Node2D" type="Node2D"]
 
-[node name="CardHandler" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1257.0
-offset_bottom = 632.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CardHandler" type="Node2D" parent="."]
 scale = Vector2(0.477723, 0.501748)
 script = ExtResource("1_bcb4l")
 

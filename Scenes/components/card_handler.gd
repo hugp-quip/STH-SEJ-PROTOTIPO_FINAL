@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 @onready var slotMan : SlotManager = get_node("SlotManager")
 var cards_dragged : Array = []
 var card_being_dragged : Node2D = null

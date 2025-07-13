@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://tuorqw58ofgg"]
 
-[ext_resource type="Script" path="res://Scripts/components/carta_inspect.gd" id="1_ldh6g"]
+[ext_resource type="Script" uid="uid://c5qm4noavsdlu" path="res://Scripts/components/carta_inspect.gd" id="1_ldh6g"]
 [ext_resource type="PackedScene" uid="uid://i5my6arf6jgs" path="res://Scenes/components/OLDCardDisplay.tscn" id="2_tb4sr"]
 
 [node name="CartaInspect" type="Node2D"]

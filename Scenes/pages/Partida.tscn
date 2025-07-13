@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://yj1su8s2rnac"]
 
-[ext_resource type="Script" path="res://Scripts/pages/Partida.gd" id="1_ga1sq"]
+[ext_resource type="Script" uid="uid://d16aujfx8c5qg" path="res://Scripts/pages/Partida.gd" id="1_ga1sq"]
 
 [node name="Partida" type="Control"]
 layout_mode = 3

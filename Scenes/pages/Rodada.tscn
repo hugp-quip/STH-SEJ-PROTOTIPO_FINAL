@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://c81fy1782eu4p"]
 
-[ext_resource type="Script" path="res://Scripts/components/rodada.gd" id="1_716og"]
+[ext_resource type="Script" uid="uid://dqlucbjbu1tgh" path="res://Scripts/components/rodada.gd" id="1_716og"]
 [ext_resource type="PackedScene" uid="uid://b8tjf6dl03tbb" path="res://Scenes/components/feed_back.tscn" id="2_km8ub"]
-[ext_resource type="Script" path="res://Scenes/components/table.gd" id="2_padpw"]
-[ext_resource type="Script" path="res://Scripts/components/mão.gd" id="4_2vhbr"]
-[ext_resource type="Script" path="res://Scripts/components/mantenedor.gd" id="4_111xv"]
+[ext_resource type="Script" uid="uid://dshybmvjecblj" path="res://Scripts/components/table.gd" id="2_padpw"]
+[ext_resource type="Script" uid="uid://buy0qx1yq6agb" path="res://Scripts/components/mão.gd" id="4_2vhbr"]
+[ext_resource type="Script" uid="uid://ymcywc68utbk" path="res://Scripts/components/mantenedor.gd" id="4_111xv"]
 
 [node name="Rodada" type="Control"]
 layout_mode = 3

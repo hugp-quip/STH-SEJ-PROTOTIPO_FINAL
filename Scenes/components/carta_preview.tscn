@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://84o2dt3b202d"]
 
-[ext_resource type="Script" path="res://Scripts/components/CartaPreview.gd" id="1_ichv7"]
+[ext_resource type="Script" uid="uid://cjv856ekqo8b4" path="res://Scripts/components/CartaPreview.gd" id="1_ichv7"]
 [ext_resource type="PackedScene" uid="uid://i5my6arf6jgs" path="res://Scenes/components/OLDCardDisplay.tscn" id="2_swlkv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tmch5"]

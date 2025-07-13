@@ -1,0 +1,103 @@
+[gd_scene load_steps=7 format=3 uid="uid://didokm4tlc6hp"]
+
+[ext_resource type="Script" uid="uid://bcu6ay0n1mwp0" path="res://Scripts/components/card_handler.gd" id="1_nchsg"]
+[ext_resource type="Script" uid="uid://dob71sliqrepf" path="res://Scripts/components/slot_manager.gd" id="2_ch8as"]
+[ext_resource type="Script" uid="uid://crjeystvc66c4" path="res://Scripts/components/storage_position.gd" id="2_v4yau"]
+[ext_resource type="PackedScene" uid="uid://c3ld55lwboday" path="res://Scenes/components/slot.tscn" id="3_7jgnu"]
+[ext_resource type="PackedScene" uid="uid://dbmg1vlpfyev" path="res://Scenes/components/node_carta_display.tscn" id="4_p7s4v"]
+[ext_resource type="Script" uid="uid://bisb84kcg8sa1" path="res://Scripts/components/label.gd" id="5_r6up7"]
+
+[node name="Rodada" type="Node2D"]
+
+[node name="CardHandler" type="Node2D" parent="."]
+scale = Vector2(0.477723, 0.501748)
+script = ExtResource("1_nchsg")
+
+[node name="Storage_Position" type="Node2D" parent="CardHandler"]
+position = Vector2(1493.4, -490.286)
+script = ExtResource("2_v4yau")
+
+[node name="SlotManager" type="VBoxContainer" parent="CardHandler"]
+offset_left = 186.3
+offset_top = 65.7701
+offset_right = 4514.3
+offset_bottom = 2115.77
+scale = Vector2(0.629782, 0.563574)
+theme_override_constants/separation = 50
+alignment = 1
+script = ExtResource("2_ch8as")
+
+[node name="Table" type="HBoxContainer" parent="CardHandler/SlotManager"]
+custom_minimum_size = Vector2(0, 1000)
+layout_mode = 2
+theme_override_constants/separation = 50
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot" parent="CardHandler/SlotManager/Table" instance=ExtResource("3_7jgnu")]
+layout_mode = 2
+
+[node name="Slot2" parent="CardHandler/SlotManager/Table" instance=ExtResource("3_7jgnu")]
+layout_mode = 2
+
+[node name="Slot3" parent="CardHandler/SlotManager/Table" instance=ExtResource("3_7jgnu")]
+layout_mode = 2
+
+[node name="Slot4" parent="CardHandler/SlotManager/Table" instance=ExtResource("3_7jgnu")]
+layout_mode = 2
+
+[node name="Slot5" parent="CardHandler/SlotManager/Table" instance=ExtResource("3_7jgnu")]
+layout_mode = 2
+
+[node name="Hand" type="HBoxContainer" parent="CardHandler/SlotManager"]
+custom_minimum_size = Vector2(0, 1000)
+layout_mode = 2
+theme_override_constants/separation = 50
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot" parent="CardHandler/SlotManager/Hand" instance=ExtResource("3_7jgnu")]
+layout_mode = 2
+
+[node name="Slot2" parent="CardHandler/SlotManager/Hand" instance=ExtResource("3_7jgnu")]
+layout_mode = 2
+
+[node name="Slot3" parent="CardHandler/SlotManager/Hand" instance=ExtResource("3_7jgnu")]
+layout_mode = 2
+
+[node name="Slot4" parent="CardHandler/SlotManager/Hand" instance=ExtResource("3_7jgnu")]
+layout_mode = 2
+
+[node name="Slot5" parent="CardHandler/SlotManager/Hand" instance=ExtResource("3_7jgnu")]
+layout_mode = 2
+
+[node name="node_carta_display2" parent="CardHandler" instance=ExtResource("4_p7s4v")]
+position = Vector2(1493.4, -490.286)
+scale = Vector2(1, 1)
+
+[node name="node_carta_display" parent="CardHandler" instance=ExtResource("4_p7s4v")]
+y_sort_enabled = false
+position = Vector2(1493.4, -490.286)
+scale = Vector2(1, 1)
+
+[node name="node_carta_display3" parent="CardHandler" instance=ExtResource("4_p7s4v")]
+y_sort_enabled = false
+position = Vector2(1493.4, -490.286)
+scale = Vector2(1, 1)
+
+[node name="node_carta_display4" parent="CardHandler" instance=ExtResource("4_p7s4v")]
+y_sort_enabled = false
+position = Vector2(1493.4, -490.286)
+scale = Vector2(1, 1)
+
+[node name="node_carta_display5" parent="CardHandler" instance=ExtResource("4_p7s4v")]
+y_sort_enabled = false
+position = Vector2(1493.4, -490.286)
+scale = Vector2(1, 1)
+
+[node name="Label" type="Label" parent="CardHandler"]
+offset_left = 18.8394
+offset_top = 37.8676
+offset_right = 272.839
+offset_bottom = 156.868
+theme_override_font_sizes/font_size = 60
+text = "fps = "
+script = ExtResource("5_r6up7")

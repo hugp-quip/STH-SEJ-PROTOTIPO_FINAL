@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://btw6veelnkhxu"]
 
 [ext_resource type="StyleBox" uid="uid://bs4e4t3pcwhrl" path="res://Assets/generic_button_style.tres" id="1_5ceyu"]
-[ext_resource type="Script" path="res://Scripts/pages/menu_inicial.gd" id="1_ehsm6"]
+[ext_resource type="Script" uid="uid://don3i0nv0iiev" path="res://Scripts/pages/menu_inicial.gd" id="1_ehsm6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_el575"]
 font_size = 41

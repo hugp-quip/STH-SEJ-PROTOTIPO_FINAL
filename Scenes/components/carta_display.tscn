@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://bmw6l2k81eycp" path="res://Assets/carta.png" id="1_ilxg0"]
 [ext_resource type="Texture2D" uid="uid://dc0553u7k7lhi" path="res://Assets/slot.PNG" id="2_3cppj"]
-[ext_resource type="Script" path="res://Scripts/components/carta_display.gd" id="2_jxlsy"]
-[ext_resource type="FontFile" uid="uid://gnnpsasijrs6" path="res://Assets/CardFont.tres" id="3_0cdgt"]
-[ext_resource type="Script" path="res://Scripts/components/carta_ui_handler.gd" id="3_h7k5c"]
+[ext_resource type="Script" uid="uid://dqjb1mdq0sxlg" path="res://Scripts/components/carta_display.gd" id="2_jxlsy"]
+[ext_resource type="FontFile" uid="uid://gnnpsasijrs6" path="res://export/web/CardFont.tres" id="3_0cdgt"]
+[ext_resource type="Script" uid="uid://c4yeh1a5gw7ly" path="res://Scripts/components/carta_ui_handler.gd" id="3_h7k5c"]
 
 [sub_resource type="Theme" id="Theme_sopmi"]
 default_font = ExtResource("3_0cdgt")

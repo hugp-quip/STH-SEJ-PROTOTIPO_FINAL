@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c11ilfxjdhohl"]
 
-[ext_resource type="Script" path="res://Scripts/components/bar_but.gd" id="1_035ux"]
+[ext_resource type="Script" uid="uid://d1d2tofbx2vky" path="res://Scripts/components/bar_but.gd" id="1_035ux"]
 
 [node name="BarBut" type="Button"]
 custom_minimum_size = Vector2(530, 90)

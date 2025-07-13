@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://udf724xr0hla"]
+
+[ext_resource type="FontFile" uid="uid://gnnpsasijrs6" path="res://export/web/CardFont.tres" id="1_5cdpv"]
+
+[resource]
+default_font = ExtResource("1_5cdpv")
+default_font_size = 30

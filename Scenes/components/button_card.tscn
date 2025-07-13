@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b8ykc8s8x8j15"]
 
 [ext_resource type="Texture2D" uid="uid://bmw6l2k81eycp" path="res://Assets/carta.png" id="1_kuphw"]
-[ext_resource type="Script" path="res://Scripts/components/card_displayButton.gd" id="2_2lyl3"]
+[ext_resource type="Script" uid="uid://dft7u57xsalcb" path="res://Scripts/components/card_displayButton.gd" id="2_2lyl3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_lutgg"]
 line_spacing = -5.0

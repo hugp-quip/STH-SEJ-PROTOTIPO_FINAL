@@ -12,7 +12,6 @@ size = Vector2(378.5, 543.561)
 
 [node name="node_carta_display" type="Sprite2D"]
 y_sort_enabled = true
-scale = Vector2(0.5, 0.484266)
 texture = ExtResource("1_1nxwo")
 script = ExtResource("2_we6fa")
 

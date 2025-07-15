@@ -1,15 +1,14 @@
-extends VBoxContainer
 
-class_name SlotManager
+#@tool
+class_name SlotManager extends Node2D
 
 var slots : Array 
 
 func _ready() -> void:
 	slots = get_node("Table").get_children() + get_node("Hand").get_children()
 	
-
-func find_slot(_slot : Panel) -> int :
+func find_slot(_slot : Sprite2D) -> int :
 	return slots.find(_slot)
 
-func get_slot(index : int) -> Panel:
+func get_slot(index : int) -> Sprite2D:
 	return slots[index]

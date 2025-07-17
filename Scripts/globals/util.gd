@@ -12,3 +12,8 @@ func scale_to_same_size(reference_size : Vector2, old_size : Vector2) -> Vector2
 func get_size(node : Sprite2D) ->  Vector2:
 	return node.get_rect().size * node.global_scale
 	 
+func printn(name: String, variable : Variant) -> void:
+	if variable == null:
+		print(name + ": null")
+	else:
+		print(name + ": " + str(variable))

@@ -1,6 +1,6 @@
 extends Control
 
-@onready var rodadaCont : RodadaContainer = get_node("RodadaContainer")
+@onready var rodadaCont : Rodada = get_node("Rodada")
 @onready var uiHandler : PartidaUIHandler = get_node("partida_UI_Handler")
 @onready var baralhoHandler : BaralhoHandler = get_node("BaralhoHandler")
 
@@ -12,7 +12,7 @@ func criar_partida(_partida: PartidaRES) -> void:
 
 	baralhoHandler.comecar(_partida.baralhoINFO, _partida.n_rodadas)
 	
-	rodadaCont.criar_rodada(baralhoHandler.criar_hand_para_partida())
+	#rodadaCont.criar_rodada(baralhoHandler.criar_hand_para_partida())
 
 func updateUI(_state : PartidaRES) -> void:
 	uiHandler.update(_state)

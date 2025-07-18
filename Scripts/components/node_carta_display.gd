@@ -15,8 +15,23 @@ var data : CartaRES
 
 
 func _ready() -> void:
-	pass
+	if Engine.is_editor_hint():
+		load_fake_card.call_deferred()
 
+		
+		
+func load_fake_card(id : int = -1) -> void:
+		var rand = RandomNumberGenerator.new()
+		rand.randomize()
+		var r : int
+		if id != -1:
+			r = id
+		else:
+			r = rand.randi_range(0, 71) # card id
+		print("internal: " + str(r))
+		var res : CartaRES = load("res://Resources/Cartas/"+str(r)+".tres")
+		data = res
+		criar_carta_display(res)
 
 func criar_carta_display(_data: CartaRES) -> void:
 	data = _data
@@ -38,7 +53,7 @@ func move_at_start(_delta) -> void:
 		draggable = true
 
 func updateUI(_data: CartaRES) -> void:
-	get_node("UIHandler").update(_data)
+	get_node("UIHandlernode").update(_data)
 
 func drag_to_slot(slot: Sprite2D) -> void :
 	global_position = slot.global_position

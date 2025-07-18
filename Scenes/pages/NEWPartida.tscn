@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://ceoel78p5ce80"]
+[gd_scene load_steps=6 format=3 uid="uid://ceoel78p5ce80"]
 
 [ext_resource type="Script" uid="uid://b2u7htb7hh40p" path="res://Scripts/pages/new_partida.gd" id="1_ul87i"]
 [ext_resource type="Script" uid="uid://bslvwt8o7qgwp" path="res://Scripts/pages/partida_ui_handler.gd" id="2_cynnd"]
 [ext_resource type="Texture2D" uid="uid://doi6dd3eavfjg" path="res://icon.svg" id="2_wvtvi"]
-[ext_resource type="Script" uid="uid://ckddc8ibr44rl" path="res://Scripts/pages/rodada_container.gd" id="3_7dy2j"]
 [ext_resource type="Script" uid="uid://drddmmukedqih" path="res://Scripts/components/baralho_handler.gd" id="3_hiw0w"]
 [ext_resource type="PackedScene" uid="uid://didokm4tlc6hp" path="res://Scenes/pages/NewRodada.tscn" id="6_vsclk"]
 
@@ -26,7 +25,4 @@ script = ExtResource("2_cynnd")
 [node name="BaralhoHandler" type="Node" parent="."]
 script = ExtResource("3_hiw0w")
 
-[node name="RodadaContainer" type="Node" parent="."]
-script = ExtResource("3_7dy2j")
-
-[node name="Rodada" parent="RodadaContainer" instance=ExtResource("6_vsclk")]
+[node name="Rodada" parent="." instance=ExtResource("6_vsclk")]

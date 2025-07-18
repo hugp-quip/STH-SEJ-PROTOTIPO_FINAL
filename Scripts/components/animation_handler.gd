@@ -40,7 +40,7 @@ func timertest() -> void:
 	get_child(-1).queue_free()
 	var j := 0
 	for i : int in cards.size():
-		cards[j].get_node("UIHandlernode").get_node("Legenda").text += str(i)+str(i)
+		#cards[j].get_node("UIHandlernode").get_node("Legenda").text += str(i)+str(i)
 		cards[j].go_to_slot(slotMan.get_slot(i))
 		#slotMan.cards[j] = cards[j]
 		j+=1
@@ -52,6 +52,9 @@ func instantiate_cartas() -> void:
 		carta.scale =  util.scale_to_same_size(util.carta_size, util.get_size(carta))
 		#print(util.get_size(carta))
 		add_child(carta)
+		var v = G.rand.randi_range(0, 71)
+		print(v)
+		carta.load_fake_card(v)
 
 func move_at_start(delta) -> void:
 	for carta in cards:

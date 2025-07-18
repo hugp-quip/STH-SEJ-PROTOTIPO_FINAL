@@ -22,23 +22,25 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if card_being_dragged:
+		if card_hovered != null: 
+				card_hovered.scale = Vector2(1, 1)
+				card_hovered = null
 		card_being_dragged.position= animHan.get_local_mouse_position() - mouse_cardOffset #lerp(card_being_dragged.position, get_local_mouse_position() - mouse_cardOffset, 25*delta)
-	
+	else:
 	# optimization oportunity, we cast this raycast every frame and also on the input.
-	
-	var _card_hovered = find_card_raycast().map(func(dict) : if dict.collider.get_parent() is NodeCard: return dict.collider.get_parent()).filter( func(node) : return node != null)
-	#print(_card_hovered.map(func(card) : if card: return card.name))
-	if _card_hovered.size() > 0 and _card_hovered[0]:   
-		if card_hovered != _card_hovered[0]:
+		var _card_hovered = find_card_raycast().map(func(dict) : if dict.collider.get_parent() is NodeCard: return dict.collider.get_parent()).filter( func(node) : return node != null)
+		#print(_card_hovered.map(func(card) : if card: return card.name))
+		if not (card_being_dragged) and _card_hovered.size() > 0 and _card_hovered[0]:   
+			if card_hovered != _card_hovered[0]:
+				if card_hovered != null: 
+					card_hovered.scale = Vector2(1, 1)
+
+				card_hovered = _card_hovered[0]
+				card_hovered.scale = Vector2(1.2, 1.2)
+		else:
 			if card_hovered != null: 
 				card_hovered.scale = Vector2(1, 1)
-
-			card_hovered = _card_hovered[0]
-			card_hovered.scale = Vector2(1.2, 1.2)
-	else:
-		if card_hovered != null: 
-			card_hovered.scale = Vector2(1, 1)
-			card_hovered = null
+				card_hovered = null
 	
 
 func _input(event: InputEvent) -> void:

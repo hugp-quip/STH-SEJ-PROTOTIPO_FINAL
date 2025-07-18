@@ -14,6 +14,7 @@ var albumAT: AlbumRes # -> album do baralho atual
 
 # Caches
 #var baralhoToLoad : Array[String] 
+var rand: = RandomNumberGenerator.new()
 
 var oLDbaralhoCache := []
 var baralhoCache := []
@@ -40,18 +41,15 @@ var menus : Dictionary
 
 
 func _ready() -> void:
-	if OS.has_feature("editor"): # -> detecta se estamos ou não no editor, carregando assim o tipo preferível de caminho
-		pth = "res://"
-	else:
-		pth = OS.get_executable_path().get_base_dir()
+	pth = "res://"
 	decks = pth.path_join(decks)
 	menus = { 
 	M.INICIAL : load("res://Scenes/pages/menu_inicial.tscn"),
-	M.RANKING : load("res://Scenes/pages/ranking.tscn"),
-	M.JOGAR : load("res://Scenes/pages/Partida.tscn"),
+	#M.RANKING : load("res://Scenes/pages/ranking.tscn"),
+	M.JOGAR : load("res://Scenes/pages/NEWPartida.tscn"),
 	M.SELECT : load("res://Scenes/pages/select_deck.tscn"),
 	M.LOADING : load("res://Scenes/pages/load_screen.tscn"),
-	M.ALBUM : load("res://Scenes/pages/album.tscn"),
+	#M.ALBUM : load("res://Scenes/pages/album.tscn"),
 	M.PRIOR : prior
 }
 

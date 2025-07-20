@@ -20,7 +20,7 @@ func refreshDecks() -> void:
 	if G.baralhoAT: # -> if no baralho selected, then select one.
 		_barSelected(G.baralhoAT, G.albumAT)
 	else:
-		_barSelected(G.baralhoCache[0] as BarRES, AlbumRes.new())
+		_barSelected(G.baralhoCache[0] as BarRES, null)#AlbumRes.new())
 
 
 # func refreshDecks() -> void:
@@ -30,7 +30,7 @@ func refreshDecks() -> void:
 # 		if not(has_album(deck)):
 # 			ab = makeAlbum(deck)
 # 		else:
-# 			ab = ResourceLoader.load((G.pth + "/" + G.info + "ALBUNS/" + deck.nome +"ALBRES"+ ".tres"))
+# 			ab = ResourceLoader.load((G.pth + "/" + G.info + "ALBUNS/" + deck.nome +"ALBRES"+ ".res"))
 # 		var _but := barBut.instantiate()
 # 		_but.data = deck
 # 		_but.pressed.connect(_barSelected.bind(deck, ab))
@@ -44,12 +44,12 @@ func refreshDecks() -> void:
 # 		_barSelected(bS[0], bS[1])
 
 # func has_album(deck : Resource) -> bool:
-# 	return FileAccess.file_exists(G.pth + "/" + G.info + "ALBUNS/" + deck.nome+"ALBRES"+ ".tres")
+# 	return FileAccess.file_exists(G.pth + "/" + G.info + "ALBUNS/" + deck.nome+"ALBRES"+ ".res")
 
 # func makeAlbum(deck : Resource) -> Resource:
 # 	var new = AlbumRes.new()
 # 	new.nome = deck.nome+"ALBRES"
-# 	ResourceSaver.save(new, G.pth + "/" + G.info + "/ALBUNS/"+ new.nome + ".tres")
+# 	ResourceSaver.save(new, G.pth + "/" + G.info + "/ALBUNS/"+ new.nome + ".res")
 # 	return new
 
 
@@ -70,7 +70,7 @@ func _barSelected(bar : BarRES, alb : Resource) -> void:
 	
 	
 
-	$"Descrição/DescText".text = bar.descrição
+	$"Descrição/DescText".text = bar.descricao
 
 	$nomeDeck.text = G.baralhoAT.nome
 	# if G.albumAT.performances:
@@ -119,8 +119,7 @@ func _on_voltar_pressed() -> void:
 	switch.emit(G.M.INICIAL)
 
 func _on_jogar_pressed() -> void:
-	switch.emit(G.M.JOGAR, {"baralhoAT": baralhoAT, "albumAT": albumAT})
-
+	switch.emit(G.M.JOGAR, baralhoAT)
 func _on_see_alb_pressed() -> void:
 	switch.emit(G.M.ALBUM)
 

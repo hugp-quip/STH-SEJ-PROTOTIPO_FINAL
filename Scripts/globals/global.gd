@@ -12,6 +12,8 @@ var oLDbaralhoAT : BaralhoINFO # -> info for currently selected decK
 var baralhoAT : BarRES
 var albumAT: AlbumRes # -> album do baralho atual
 
+var debug : bool = false
+
 # Caches
 #var baralhoToLoad : Array[String] 
 var rand: = RandomNumberGenerator.new()
@@ -37,8 +39,10 @@ enum M {
 
 var menus : Dictionary
 
-
-
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_released("activate_debug"):
+		#print("debug")
+		debug = !debug
 
 func _ready() -> void:
 	pth = "res://"
@@ -56,7 +60,7 @@ func _ready() -> void:
 	
 func get_baralhoToLoad() -> Array:
 	var fldr := DirAccess.open(G.decks)
-	assert(fldr.get_files().size() > 0, "ERROR NO DECKS AVAILABLE")
+	#assert(fldr.get_files().size() > 0, "ERROR NO DECKS AVAILABLE")
 	var ret := []
 	for file in fldr.get_files():
 		ret.append(decks + "/" + file)

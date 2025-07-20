@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ceoel78p5ce80"]
+[gd_scene load_steps=7 format=3 uid="uid://ceoel78p5ce80"]
 
 [ext_resource type="Script" uid="uid://b2u7htb7hh40p" path="res://Scripts/pages/new_partida.gd" id="1_ul87i"]
-[ext_resource type="Script" uid="uid://bslvwt8o7qgwp" path="res://Scripts/pages/partida_ui_handler.gd" id="2_cynnd"]
+[ext_resource type="Script" uid="uid://bslvwt8o7qgwp" path="res://Scripts/components/partida_ui_handler.gd" id="2_cynnd"]
 [ext_resource type="Texture2D" uid="uid://doi6dd3eavfjg" path="res://icon.svg" id="2_wvtvi"]
 [ext_resource type="Script" uid="uid://drddmmukedqih" path="res://Scripts/components/baralho_handler.gd" id="3_hiw0w"]
-[ext_resource type="PackedScene" uid="uid://didokm4tlc6hp" path="res://Scenes/pages/NewRodada.tscn" id="6_vsclk"]
+[ext_resource type="Texture2D" uid="uid://bmw6l2k81eycp" path="res://Assets/carta.png" id="3_vsclk"]
+[ext_resource type="Script" uid="uid://dv1s4vvwa6xo8" path="res://Scripts/components/rodada_cont.gd" id="5_vsclk"]
 
 [node name="PartidaContainer" type="Control"]
 layout_mode = 3
@@ -15,14 +16,47 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ul87i")
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(108, 107)
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 34.0
+offset_right = 261.0
+offset_bottom = 103.0
 texture = ExtResource("2_wvtvi")
+expand_mode = 1
 
-[node name="partida_UI_Handler" type="Node" parent="."]
+[node name="partida_UI_Handler" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.233025
+anchor_right = 0.263021
+anchor_bottom = 0.975309
+texture = ExtResource("3_vsclk")
+expand_mode = 1
 script = ExtResource("2_cynnd")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="partida_UI_Handler"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = 84.9998
+offset_right = -23.0002
+offset_bottom = -266.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Envio" type="Button" parent="partida_UI_Handler/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Enviar Rodada"
 
 [node name="BaralhoHandler" type="Node" parent="."]
 script = ExtResource("3_hiw0w")
 
-[node name="Rodada" parent="." instance=ExtResource("6_vsclk")]
+[node name="RodadaCont" type="Node2D" parent="."]
+script = ExtResource("5_vsclk")
+
+[connection signal="pressed" from="partida_UI_Handler/VBoxContainer/Envio" to="partida_UI_Handler" method="_on_envio_pressed"]

@@ -33,7 +33,7 @@ func atualizar() -> void:
 	descDICA = dados_carta[3]
 
 func getData() -> int:
-	assert(is_slot, "ERROR TRIED TO GET DATA ON A SLOT")
+	#assert(is_slot, "ERROR TRIED TO GET DATA ON A SLOT")
 	return cardId
 
 func makeSlot():

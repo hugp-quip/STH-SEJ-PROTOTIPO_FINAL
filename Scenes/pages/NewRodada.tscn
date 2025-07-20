@@ -1,14 +1,50 @@
-[gd_scene load_steps=7 format=3 uid="uid://didokm4tlc6hp"]
+[gd_scene load_steps=10 format=3 uid="uid://didokm4tlc6hp"]
 
 [ext_resource type="Script" uid="uid://bcu6ay0n1mwp0" path="res://Scripts/components/card_handler.gd" id="1_nchsg"]
-[ext_resource type="Script" uid="uid://nigr7c5bojyh" path="res://Scripts/pages/new_rodada.gd" id="1_v4yau"]
+[ext_resource type="Script" uid="uid://nigr7c5bojyh" path="res://Scripts/components/new_rodada.gd" id="1_v4yau"]
 [ext_resource type="Script" uid="uid://dob71sliqrepf" path="res://Scripts/components/slot_manager.gd" id="2_ch8as"]
-[ext_resource type="Script" uid="uid://b54nxw0t5xkir" path="res://Scripts/components/abstract/slot_sorter.gd" id="4_8lgmq"]
+[ext_resource type="Script" uid="uid://dgc28ukwlmsd4" path="res://Scripts/abstract/rodada_judge.gd" id="2_g6rep"]
+[ext_resource type="Script" uid="uid://cln0uuthmbl86" path="res://Scripts/components/position_helper.gd" id="2_na6wh"]
+[ext_resource type="Script" uid="uid://b54nxw0t5xkir" path="res://Scripts/abstract/slot_sorter.gd" id="4_8lgmq"]
 [ext_resource type="Script" uid="uid://dsruuxfmru7ck" path="res://Scripts/components/animation_handler.gd" id="4_v4yau"]
 [ext_resource type="Script" uid="uid://bisb84kcg8sa1" path="res://Scripts/components/label.gd" id="5_r6up7"]
+[ext_resource type="Theme" uid="uid://udf724xr0hla" path="res://export/web/cardLegendatheme.tres" id="8_8lgmq"]
 
 [node name="Rodada" type="Node2D"]
 script = ExtResource("1_v4yau")
+
+[node name="Rodada_UIHandler" type="CanvasLayer" parent="."]
+visible = false
+metadata/_edit_use_anchors_ = true
+
+[node name="PositionHelper" type="Control" parent="Rodada_UIHandler"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_na6wh")
+
+[node name="Table" type="Control" parent="Rodada_UIHandler/PositionHelper"]
+layout_mode = 1
+anchor_left = 0.335938
+anchor_top = 0.405864
+anchor_right = 0.37066
+anchor_bottom = 0.467593
+metadata/_edit_use_anchors_ = true
+
+[node name="Hand" type="Control" parent="Rodada_UIHandler/PositionHelper"]
+layout_mode = 1
+anchor_left = 0.335069
+anchor_top = 0.791667
+anchor_right = 0.369792
+anchor_bottom = 0.853395
+metadata/_edit_use_anchors_ = true
+
+[node name="RodadaJudge" type="Node" parent="."]
+script = ExtResource("2_g6rep")
 
 [node name="CardHandler" type="Node2D" parent="."]
 script = ExtResource("1_nchsg")
@@ -19,12 +55,13 @@ scale = Vector2(0.4, 0.4)
 script = ExtResource("4_v4yau")
 
 [node name="SlotManager" type="Node2D" parent="CardHandler/AnimationHandler"]
+unique_name_in_owner = true
 position = Vector2(-1815, 365)
 scale = Vector2(2.5, 2.5)
 script = ExtResource("2_ch8as")
 
 [node name="Table" type="Node2D" parent="CardHandler/AnimationHandler/SlotManager"]
-position = Vector2(386, 513)
+position = Vector2(386, 263)
 scale = Vector2(0.4, 0.4)
 script = ExtResource("4_8lgmq")
 spacing = 20
@@ -32,7 +69,7 @@ n_slots = 5
 metadata/_edit_use_anchors_ = true
 
 [node name="Hand" type="Node2D" parent="CardHandler/AnimationHandler/SlotManager"]
-position = Vector2(386, 263)
+position = Vector2(386, 513)
 scale = Vector2(0.4, 0.4)
 script = ExtResource("4_8lgmq")
 spacing = 20
@@ -45,3 +82,15 @@ offset_bottom = 54.0
 theme_override_font_sizes/font_size = 20
 text = "fps = "
 script = ExtResource("5_r6up7")
+
+[node name="result_debug" type="Label" parent="."]
+offset_left = 305.0
+offset_top = 54.0
+offset_right = 1146.0
+offset_bottom = 152.0
+theme = ExtResource("8_8lgmq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="resized" from="Rodada_UIHandler/PositionHelper/Table" to="Rodada_UIHandler/PositionHelper" method="_on_table_resized"]
+[connection signal="resized" from="Rodada_UIHandler/PositionHelper/Hand" to="Rodada_UIHandler/PositionHelper" method="_on_hand_resized"]

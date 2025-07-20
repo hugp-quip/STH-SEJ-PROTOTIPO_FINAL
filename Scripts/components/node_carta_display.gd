@@ -15,10 +15,13 @@ var data : CartaRES
 
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		load_fake_card.call_deferred()
+	if Engine.is_editor_hint() and get_parent() is SubViewport:
+		#print(1)
+		load_fake_card()
 
-		
+func get_ano() -> String:	
+	return data.ano
+
 		
 func load_fake_card(id : int = -1) -> void:
 		var rand = RandomNumberGenerator.new()
@@ -28,14 +31,17 @@ func load_fake_card(id : int = -1) -> void:
 			r = id
 		else:
 			r = rand.randi_range(0, 71) # card id
-		print("internal: " + str(r))
-		var res : CartaRES = load("res://Resources/Cartas/"+str(r)+".tres")
+		#print("internal: " + str(r))
+		var res : CartaRES = load("res://Resources/Cartas/"+str(r)+".res")
 		data = res
 		criar_carta_display(res)
 
 func criar_carta_display(_data: CartaRES) -> void:
 	data = _data
 	updateUI(data)
+
+func updateUI(_data: CartaRES) -> void:
+	get_node("UIHandlernode").update(_data)
 
 func scale_to_same_size(reference_size : Vector2, old_size : Vector2) -> Vector2:
 	return Vector2(reference_size.x/old_size.x , reference_size.y/old_size.y)
@@ -52,8 +58,7 @@ func move_at_start(_delta) -> void:
 		finished_auto_moving.emit()
 		draggable = true
 
-func updateUI(_data: CartaRES) -> void:
-	get_node("UIHandlernode").update(_data)
+
 
 func drag_to_slot(slot: Sprite2D) -> void :
 	global_position = slot.global_position
@@ -63,7 +68,7 @@ func move_to_goal():
 
 	global_position.x = lerp(global_position.x, position_goal.x, 0.08)
 	global_position.y = lerp(global_position.y, position_goal.y, 0.08)
-	print(ceilf(global_position.y), position_goal.y-1)
+	#print(ceilf(global_position.y), position_goal.y-1)
 	if ceilf(global_position.y) >= position_goal.y-1:
 		finished_animation.emit()
 		draggable = true
